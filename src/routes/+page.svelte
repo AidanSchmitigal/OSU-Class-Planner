@@ -15,7 +15,6 @@
     event.preventDefault();
 
     const json = event.dataTransfer!.getData('text/plain');
-    console.log(json);
     let { course } = JSON.parse(json);
 
     if (course.discipline === searchCourse?.discipline && course.code === searchCourse?.code) searchCourse = undefined;
@@ -26,9 +25,10 @@
     }
 
     if (course.year === -1) {
-      course = addCourse(course.discipline, course.code);
+      course = addCourse(course);
       if (!course) return;
     }
+
     course.year = hoveringOver.year;
     course.term = hoveringOver.term;
     updateCourse(course);
@@ -60,7 +60,7 @@
 
 <select
   class="w-full border-2 border-blue-500 rounded-sm"
-  value={selectedMajor?.majorCode}
+  value={$selectedMajor?.majorCode}
   on:change={(e) => {
     setMajor(e.currentTarget.value);
   }}>
@@ -113,7 +113,7 @@
 {#key $selectedCourses}
   <div class="flex flex-wrap gap-1">
     {#if selectedMajor}
-      {#each selectedMajor.courses as courseList}
+      {#each $selectedMajor?.courses ?? [] as courseList}
         <div class={`flex gap-1  ${courseList.length == 1 ? '' : 'bg-gray-100 outline-1 outline-double outline-white'}`}>
           {#each courseList as course}
             {#if !hasCourse(course.discipline, course.number)}

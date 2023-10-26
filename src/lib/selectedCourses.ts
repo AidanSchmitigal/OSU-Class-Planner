@@ -1,13 +1,12 @@
-import { loadLocalStore, saveLocalStore, type Course, type Major, majors, getCourseData } from '$lib';
+import { loadLocalStore, saveLocalStore, type Course, type Major, majors } from '$lib';
 import { writable, get } from 'svelte/store';
 
-export let selectedMajor = getMajor(loadLocalStore<string>('selectedMajor') ?? '');
+export const selectedMajor = writable<Major | undefined>(getMajor(loadLocalStore<string>('selectedMajor') ?? ''));
 export const selectedCourses = writable<Course[]>(loadLocalStore('selectedCourses') ?? []);
 
-export function addCourse(discipline: string, code: string): Course | undefined {
-  if (hasCourse(discipline, code)) return;
-  const course = getCourseData(discipline, code);
-  if (!course) alert('Course not found');
+export function addCourse(course: Course): Course | undefined {
+  if (hasCourse(course.discipline, course.code)) return;
+  selectedCourses.update((courses) => [...courses, course]);
   return course;
 }
 
@@ -40,6 +39,6 @@ function getMajor(majorCode: string): Major | undefined {
 export function setMajor(majorCode: string) {
   const major = getMajor(majorCode);
   if (!major) return;
-  selectedMajor = major;
+  selectedMajor.update(() => major);
   saveLocalStore('selectedMajor', majorCode);
 }
