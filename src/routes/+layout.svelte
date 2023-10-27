@@ -21,7 +21,8 @@
         <line x1={startingPosition.x} y1={startingPosition.y} x2={endingPosition.x} y2={endingPosition.y} stroke="red" marker-end="url(#arrow)" stroke-width="5" />
 
         {#if endingPosition.x < 0 || endingPosition.x > innerWidth || endingPosition.y < 0 || endingPosition.y > innerHeight}
-          <text x={endingPosition.x < 0 ? 50 : endingPosition.x > innerWidth ? innerWidth - 50 : endingPosition.x} y={endingPosition.y < 0 ? 25 : endingPosition.y > innerHeight ? innerHeight - 25 : endingPosition.y} fill="red" font-size="20" font-weight="bold" text-anchor="middle" dominant-baseline="middle">{$hoverCourse.discipline} {$hoverCourse.code}</text>
+          <rect x={endingPosition.x < 0 ? 0 : endingPosition.x > innerWidth ? innerWidth - 100 : endingPosition.x - 50} y={endingPosition.y < 0 ? 0 : endingPosition.y > innerHeight ? innerHeight - 50 : endingPosition.y - 25} width="100" height="20" fill="white" />
+          <text x={endingPosition.x < 0 ? 0 : endingPosition.x > innerWidth ? innerWidth - 100 : endingPosition.x - 50} y={endingPosition.y < 0 ? 0 : endingPosition.y > innerHeight ? innerHeight - 50 : endingPosition.y - 25} fill="red" font-size="20" font-family="monospace" dominant-baseline="hanging" text-anchor="start">{prerequisite.discipline}_{prerequisite.code}</text>
         {/if}
 
         <!-- Add a circle where the mouse is -->
@@ -32,6 +33,6 @@
     {/each}
   </svg>
 {/if}
-<div class="p-4 gap-2 flex flex-col">
+<div class="p-2 gap-1 flex flex-col text-xs">
   <slot />
 </div>

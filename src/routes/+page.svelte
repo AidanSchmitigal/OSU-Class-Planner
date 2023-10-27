@@ -37,10 +37,13 @@
   }
 </script>
 
-<div class="flex gap-2">
+<div class="flex gap-1 items-center">
+  (Click)
   {#each [Status.NOT_STARTED, Status.NEXT_TERM, Status.IN_PROGRESS, Status.COMPLETED] as status}
     <div class={`p-1 px-2 border-2 border-transparent rounded-full capitalize ${status.style}`}>{status.value.toLowerCase().replace('_', ' ')}</div>
   {/each}
+  <div class="w-8" />
+  (Right Click)
   {#each [Requirement.NONE, Requirement.REQUIRED, Requirement.BACCORE, Requirement.MAJOR, Requirement.ELECTIVE] as requirement}
     <div class={`p-1 px-2 rounded-md capitalize border-2 ${requirement.style}`}>{requirement.value.toLowerCase().replace('_', ' ')}</div>
   {/each}
@@ -77,16 +80,16 @@
     }} />
 {/if}
 
-<div class="flex overflow-x-scroll gap-8">
+<div class="flex overflow-x-scroll gap-3">
   {#each [0, 1, 2, 3] as year}
     <div class="flex flex-col">
       Year {year + 1}
-      <div class="flex gap-2 h-full">
+      <div class="flex gap-1 h-full">
         {#each Object.values(Term) as term}
-          <div class="flex-col flex gap-2 h-full">
-            <span class="text-2xl font-bold capitalize">{term}</span>
+          <div class="flex-col flex gap-1 h-full">
+            <span class="text-lg font-bold capitalize">{term}</span>
             <div
-              class="flex p-2 flex-col gap-2 min-w-[8rem] min-h-[10rem] bg-gray-50 h-full"
+              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50 h-full"
               class:hovering={hoveringOver?.year === year && hoveringOver?.term === term}
               role="group"
               on:dragenter={() => {
@@ -135,10 +138,10 @@
 
 <div>
   {#each baccores as baccore}
-    <p class="text-2xl font-bold capitalize">
+    <p class="text-lg font-bold capitalize">
       {baccore.title}
     </p>
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap gap-1">
       {#each baccore.courses as course}
         {@const courseData = getCourseData(course.discipline, course.number)}
         {#if courseData && !hasCourse(course.discipline, course.number)}
