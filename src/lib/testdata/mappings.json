@@ -1,0 +1,179 @@
+{
+  "_embedded": {
+    "mappings": [
+      {
+        "id": "0848E1F61051C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": "IB:CHEMISTRY",
+        "transferCourseDiscipline": "IBCH",
+        "transferCourseNumber": "6",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61051C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61051C9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "5956a6340e4239955dbb97e501472f33",
+        "schoolId": "TESTS",
+        "transferCourseTitle": "IBS:DANCE",
+        "transferCourseDiscipline": "IBSDAN",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/5956a6340e4239955dbb97e501472f33"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/5956a6340e4239955dbb97e501472f33"
+          }
+        }
+      },
+      {
+        "id": "0848E1F61054C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61054C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61054C9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F61056C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61056C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61056C9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F61058C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61058C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61058C9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F6105AC9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105AC9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105AC9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F6105CC9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105CC9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105CC9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F6105EC9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": "IB:CHEMISTRY",
+        "transferCourseDiscipline": "IBCH",
+        "transferCourseNumber": "6S",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105EC9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F6105EC9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F61060C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": "IB:CHEMISTRY",
+        "transferCourseDiscipline": "IBCH",
+        "transferCourseNumber": "7",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61060C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61060C9DCE0634820280AB49A"
+          }
+        }
+      },
+      {
+        "id": "0848E1F61063C9DCE0634820280AB49A",
+        "schoolId": "800950",
+        "transferCourseTitle": " ",
+        "transferCourseDiscipline": " ",
+        "transferCourseNumber": " ",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61063C9DCE0634820280AB49A"
+          },
+          "mappingRestRep1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings/0848E1F61063C9DCE0634820280AB49A"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings?page=0&size=10"
+    },
+    "self": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings"
+    },
+    "next": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings?page=1&size=10"
+    },
+    "last": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/mappings?page=59188&size=10"
+    },
+    "profile": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/profile/mappings"
+    }
+  },
+  "page": {
+    "size": 10,
+    "totalElements": 591884,
+    "totalPages": 59189,
+    "number": 0
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "_embedded": {
+    "transferable-schools": [
+      {
+        "id": "9AB4B1746B3B5301E0539087C180D8E5",
+        "code": "001065",
+        "title": "University of Alaska Southeast",
+        "locality": "Juneau",
+        "region": "AK",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3B5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3B5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B3C5301E0539087C180D8E5",
+        "code": "001066",
+        "title": "U of AK-Kenai Peninsula Colleg",
+        "locality": "Soldotna",
+        "region": "AK",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3C5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3C5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B3D5301E0539087C180D8E5",
+        "code": "001067",
+        "title": "Univ of Alaska SE-Ketchikan",
+        "locality": "Ketchikan",
+        "region": "AK",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3D5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3D5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B3E5301E0539087C180D8E5",
+        "code": "001068",
+        "title": "U of AK-Matanuska-Susitna",
+        "locality": "Palmer",
+        "region": "AK",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3E5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3E5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B3F5301E0539087C180D8E5",
+        "code": "001069",
+        "title": "Univ of Alaska SE-Sitka",
+        "locality": "Sitka",
+        "region": "AK",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3F5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B3F5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "865653AF837F0B20E040C180CE872AF7",
+        "code": "TESTS",
+        "title": "Test Scores",
+        "locality": "Vashon",
+        "region": "WA",
+        "creditsType": "S",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/865653AF837F0B20E040C180CE872AF7"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/865653AF837F0B20E040C180CE872AF7"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B1E5301E0539087C180D8E5",
+        "code": "001028",
+        "title": "Miles College",
+        "locality": "Fairfield",
+        "region": "AL",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B1E5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B1E5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B1F5301E0539087C180D8E5",
+        "code": "001029",
+        "title": "University of Mobile",
+        "locality": "Mobile",
+        "region": "AL",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B1F5301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B1F5301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B205301E0539087C180D8E5",
+        "code": "001030",
+        "title": "Bishop State Community College",
+        "locality": "Mobile",
+        "region": "AL",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B205301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B205301E0539087C180D8E5"
+          }
+        }
+      },
+      {
+        "id": "9AB4B1746B215301E0539087C180D8E5",
+        "code": "001031",
+        "title": "Northeast Alabama Comm Coll",
+        "locality": "Rainsville",
+        "region": "AL",
+        "creditsType": "SE",
+        "_links": {
+          "self": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B215301E0539087C180D8E5"
+          },
+          "schoolRestRepV1": {
+            "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/9AB4B1746B215301E0539087C180D8E5"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools?page=0&size=10"
+    },
+    "self": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools"
+    },
+    "next": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools?page=1&size=10"
+    },
+    "last": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools?page=436&size=10"
+    },
+    "profile": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/profile/transferable-schools"
+    },
+    "search": {
+      "href": "https://mydegrees.oregonstate.edu:7447/dashboard/api/transferable-schools/search"
+    }
+  },
+  "page": {
+    "size": 10,
+    "totalElements": 4365,
+    "totalPages": 437,
+    "number": 0
+  }
+}
