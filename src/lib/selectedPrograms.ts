@@ -1,15 +1,6 @@
 // @ts-ignore
-import _degreeTree from '$lib/data/degreeTree.json';
-// @ts-ignore
-import _degrees from '$lib/data/degrees.json';
-// @ts-ignore
-import _colleges from '$lib/data/colleges.json';
-// @ts-ignore
-import _majors from '$lib/data/majors.json';
-// @ts-ignore
-import _concentrations from '$lib/data/concentrations.json';
-
-const degreeTree: {
+import _degreeTree from '$lib/data/degreeTree.json' assert { type: 'json' };
+const degreeTree = _degreeTree as {
   degree: string;
   colleges: {
     college: string;
@@ -18,21 +9,50 @@ const degreeTree: {
       concentrations: string[];
     }[];
   }[];
-}[] = _degreeTree;
+}[];
+// @ts-ignore
+import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
+const degrees = (_degrees as ProgramList).map((e) => ({
+  ...e,
+  courseRequirements: e.requirements.flatMap(getCourseRquirements)
+})) as ProgramList;
+// @ts-ignore
+import _colleges from '$lib/data/colleges.json' assert { type: 'json' };
+// @ts-ignore
+const colleges = (_colleges as ProgramList).map((e) => ({
+  ...e,
+  courseRequirements: e.requirements.flatMap(getCourseRquirements)
+})) as ProgramList;
+// @ts-ignore
+import _majors from '$lib/data/majors.json' assert { type: 'json' };
+const majors = (_majors as ProgramList).map((e) => ({
+  ...e,
+  courseRequirements: e.requirements.flatMap(getCourseRquirements)
+})) as ProgramList;
+// @ts-ignore
+import _concentrations from '$lib/data/concentrations.json' assert { type: 'json' };
+const concentrations = (_concentrations as ProgramList).map((e) => ({
+  ...e,
+  courseRequirements: e.requirements.flatMap(getCourseRquirements)
+})) as ProgramList;
 
 type ProgramList = {
   key: string;
   description: string;
   requirements: Rule[];
+  courseRequirements: {
+    coursesNeeded?: number;
+    creditsNeeded?: number;
+    courses: {
+      discipline: string;
+      code: string;
+    }[];
+  }[];
 }[];
 
-const degrees: ProgramList = _degrees as ProgramList;
-const colleges: ProgramList = _colleges as ProgramList;
-const majors: ProgramList = _majors as ProgramList;
-const concentrations: ProgramList = _concentrations as ProgramList;
-
 import { writable } from 'svelte/store';
-import type { Rule } from './requirements';
+import { getCourseRquirements, type Rule } from './requirements';
+import { loadLocalStore, saveLocalStore } from '$lib';
 
 export const selectedPrograms = writable<
   {
@@ -41,7 +61,10 @@ export const selectedPrograms = writable<
     major: string;
     concentration: string;
   }[]
->([]);
+>(loadLocalStore('selectedPrograms') ?? []);
+selectedPrograms.subscribe((value) => {
+  saveLocalStore('selectedPrograms', value);
+});
 
 export function getDegrees() {
   return degreeTree;
