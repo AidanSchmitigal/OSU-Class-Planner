@@ -1,17 +1,33 @@
 <script lang="ts">
-  import type { AnyRule, Rule } from '$lib/requirements';
-  import { Requirement } from '$lib/selectedCourses';
+  import { checkIfCondition, type AnyRule, type Rule } from '$lib/requirements';
+  import { hasCourseSelector, selectedCourses, type Requirement } from '$lib/selectedCourses';
   import { getBlock } from '$lib/selectedPrograms';
   import RuleComponent from './RuleComponent.svelte';
 
   let _rule: Rule;
   export { _rule as rule };
   const rule: AnyRule = _rule as AnyRule;
+
+  let conditionalCheck:
+    | {
+        eval: boolean;
+        comparisons: {
+          eval: boolean;
+          expression: string;
+        }[];
+      }
+    | undefined = rule.ruleType === 'IfStmt' ? checkIfCondition(rule.requirement.leftCondition) : undefined;
+  let ifTrue = conditionalCheck ? conditionalCheck.eval : undefined;
 </script>
 
-<div class="p-2 bg-gray-400/10">
+<div class={`p-2 ${ifTrue === undefined ? 'bg-gray-100' : ifTrue ? 'bg-green-100' : 'bg-red-100'}`}>
   {#if rule.ruleType === 'IfStmt'}
-    IF (something)
+    IF
+    <span>
+      {#each conditionalCheck?.comparisons ?? [] as comparison}
+        <span class={comparison.eval ? 'text-green-500' : 'text-red-500'}>{comparison.expression}&nbsp;</span>
+      {/each}
+    </span>
     {#each rule.requirement.ifPart.ruleArray as newRule}
       <RuleComponent rule={newRule} />
     {/each}
@@ -29,11 +45,14 @@
       <RuleComponent rule={newRule} />
     {/each}
   {:else if rule.ruleType === 'Course'}
+    {@const evaledCourses = ($selectedCourses.length, rule.requirement.courseArray.filter((course) => hasCourseSelector(course.discipline, course.number)))}
     {rule.requirement.classesBegin ? `${rule.requirement.classesBegin} classes` : `${rule.requirement.creditsBegin} credits`} in
-    {#each rule.requirement.courseArray as course}
-      {course.discipline}
-      {course.number}
-      &nbsp;{rule.requirement.classCreditOperator.toLowerCase()}&nbsp;&nbsp;
+    {#each rule.requirement.courseArray as course, i}
+      <span class={evaledCourses[i] ? 'text-green-500' : 'text-red-500'}>
+        {course.discipline}
+        {course.number}
+        {rule.requirement.classCreditOperator.toLowerCase()}
+      </span>
     {/each}
   {:else if rule.ruleType === 'Group'}
     {rule.requirement.numberOfGroups} groups of {rule.requirement.numberOfRules} rules
@@ -45,8 +64,8 @@
       <RuleComponent rule={newRule} />
     {/each}
   {:else if rule.ruleType === 'Complete'}
-    return {rule.label} (Complete);
+    {rule.label} (Complete);
   {:else if rule.ruleType === 'Incomplete'}
-    return {rule.label} (Incomplete);
+    {rule.label} (Incomplete);
   {/if}
 </div>
