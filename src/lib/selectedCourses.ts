@@ -5,6 +5,18 @@ export enum Term {
   SUMMER = 'SUMMER'
 }
 export const Terms = [Term.FALL, Term.WINTER, Term.SPRING, Term.SUMMER];
+export function termAbbr(term: Term) {
+  switch (term) {
+    case Term.FALL:
+      return 'F';
+    case Term.WINTER:
+      return 'W';
+    case Term.SPRING:
+      return 'S';
+    case Term.SUMMER:
+      return 'U';
+  }
+}
 
 export const Requirement = {
   NONE: { value: 'NONE', style: 'border-gray-100' },
@@ -198,6 +210,19 @@ export function hasCourseSelector(discipline: string, code: string): boolean {
 
 export function getPostrequisites(course: Course): Course[] {
   return courses.filter((c) => c.prerequisites.some((p) => p.discipline === course.discipline && p.code === course.code));
+}
+
+export function getTermsOffered(course: Course): { year: number; terms: Term[] }[] {
+  const years: { year: number; terms: Term[] }[] = [];
+  course.sections.forEach((s) => {
+    const [_year, _term] = s.termLiteral.split(' ');
+    const year = +_year,
+      term = _term.toUpperCase() as Term;
+    const yearIndex = years.findIndex((y) => y.year === year);
+    if (yearIndex === -1) years.push({ year: year, terms: [term] });
+    else if (!years[yearIndex].terms.includes(term)) years[yearIndex].terms.push(term);
+  });
+  return years;
 }
 
 // export function removeCourse(course: Course) {

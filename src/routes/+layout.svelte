@@ -1,6 +1,6 @@
 <script>
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
-  import { getPostrequisites } from '$lib/selectedCourses';
+  import { getPostrequisites, getTermsOffered } from '$lib/selectedCourses';
 
   import '../app.css';
 
@@ -79,6 +79,14 @@
         {getPostrequisites(course)
           .map((postrequisite) => `${postrequisite.discipline} ${postrequisite.code}`)
           .join(', ')}
+      </div>
+      <div class="font-bold text-sm">Attributes</div>
+      <div>{course.attributes.map((a) => a.description).join(', ')}</div>
+      <div class="font-bold text-sm">Sections</div>
+      <div>
+        {getTermsOffered(course)
+          .map((s) => `${s.year} ${s.terms.join(', ')}`)
+          .join(' | ')}
       </div>
     </div>
   </div>
