@@ -8,6 +8,7 @@
     | {
         discipline: string;
         code: string;
+        attribute?: string;
       }
     | undefined = undefined;
 </script>
@@ -52,6 +53,9 @@
 {:else if courseData}
   <div class="bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center">
     <span class="uppercase font-bold">{courseData.discipline} {courseData.code}</span>
+    {#if courseData.attribute}
+      <span class="uppercase font-bold">{courseData.attribute}</span>
+    {/if}
     <span class="text-[10px] text-center whitespace-break-spaces">UNKNOWN COURSE</span>
   </div>
 {:else}

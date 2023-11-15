@@ -101,10 +101,14 @@ function updateCourseRequirements(
 selectedPrograms.subscribe(updateCourseRequirements);
 
 export function getCourse(discipline: string, code: string, attribute?: string): Course | undefined {
-  const anyDiscipline = discipline === '@';
-  const anyCode = code === '@';
-  const course = courses.find((c) => (anyDiscipline || c.discipline === discipline) && (anyCode || c.code === code) && (!attribute || c.attributes.some((a) => a.code === attribute)));
+  const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
+  const codeRegex = `^${code.split('@').join('.*')}$`;
+  const course = courses.find((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)));
+  console.log(discipline, disciplineRegex, code, codeRegex, attribute, course);
   if (!course) return undefined;
+
+  // const course = courses.find((c) => c.discipline === discipline && c.code === code);
+  // if (!course) return undefined;
 
   const requirement = allDegreeRequirements.some((c) => c.discipline === discipline && c.code === code)
     ? Requirement.REQUIRED //

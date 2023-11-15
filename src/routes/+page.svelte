@@ -216,7 +216,7 @@
               <div class="flex flex-wrap gap-2">
                 {#each courseSet.courses as courseO}
                   {@const course = getCourse(courseO.discipline, courseO.code, courseO.attribute)}
-                  {#if course === undefined || !hasCourse(course)}
+                  {#if !hasCourse(course)}
                     <CourseComponent
                       on:dragstart={(event) => {
                         dragStart(event, course);
@@ -224,7 +224,8 @@
                       {course}
                       courseData={{
                         discipline: courseO.discipline,
-                        code: courseO.code
+                        code: courseO.code,
+                        attribute: courseO.attribute
                       }} />
                   {/if}
                 {/each}
