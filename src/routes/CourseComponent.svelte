@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { nextRequirement, type Course, nextStatus, termAbbr } from '$lib';
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
-  import { nextRequirement, getCourse, nextStatus, type Course, selectedCourses, getTermsOffered, termAbbr } from '$lib/selectedCourses';
+  import { selectedCourses, getTermsOffered } from '$lib/selectedCourses';
 
   export let inPlanner = false;
   export let course: Course | null = null;
@@ -47,7 +48,7 @@
     <span class="uppercase font-bold">{course.discipline} {course.code}</span>
     <span class="text-[10px] text-center capitalize whitespace-break-spaces">{course.title.toLowerCase()}</span>
     <span class={`${inPlanner ? 'inline' : 'group-hover/course:inline hidden'} text-[10px] font-light`}
-      >({course.creditHourLow || course.creditHourHigh})<span class={inPlanner ? 'hidden' : 'inline'}
+      >({course.creditHourLow || course.creditHourHigh})<span class={inPlanner ? 'group-hover/course:inline hidden' : 'inline'}
         >{getTermsOffered(course)
           .flatMap((s) => s.terms)
           .map(termAbbr)}</span
