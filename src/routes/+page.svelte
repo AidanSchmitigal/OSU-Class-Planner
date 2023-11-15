@@ -199,7 +199,7 @@
   {#each [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }] as program}
     {#if program.data}
       {@const programData = program.getter(program.data)}
-      <p class="text-lg font-bold capitalize sticky top-1/2 bg-white">
+      <p class="text-lg font-bold capitalize top-1/2 bg-white">
         {programData?.description}
       </p>
       <details class="flex flex-col">
@@ -216,7 +216,7 @@
               <div class="flex flex-wrap gap-2">
                 {#each courseSet.courses as courseO}
                   {@const course = getCourse(courseO.discipline, courseO.code, courseO.attribute)}
-                  {#if !hasCourse(course)}
+                  {#if course === undefined || !hasCourse(course)}
                     <CourseComponent
                       on:dragstart={(event) => {
                         dragStart(event, course);
