@@ -1,3 +1,44 @@
+export enum Term {
+  FALL = 'FALL',
+  WINTER = 'WINTER',
+  SPRING = 'SPRING',
+  SUMMER = 'SUMMER'
+}
+export const Terms = [Term.FALL, Term.WINTER, Term.SPRING, Term.SUMMER];
+
+export const Requirement = {
+  NONE: { value: 'NONE', style: 'border-gray-100' },
+  REQUIRED: { value: 'REQUIRED', style: 'border-red-500' },
+  BACCORE: { value: 'BACCORE', style: 'border-blue-500' },
+  MAJOR: { value: 'MAJOR', style: 'border-amber-500' },
+  CONCENTRATION: { value: 'CONCENTRATION', style: 'border-pink-500' },
+  ELECTIVE: { value: 'ELECTIVE', style: 'border-green-500' }
+};
+export const Requirements = [Requirement.NONE, Requirement.REQUIRED, Requirement.BACCORE, Requirement.MAJOR, Requirement.CONCENTRATION, Requirement.ELECTIVE];
+
+export type Requirement = typeof Requirement[keyof typeof Requirement];
+export function nextRequirement(requirement: Requirement): Requirement {
+  return Requirements[(Requirements.indexOf(requirement) + 1) % Requirements.length];
+}
+export function previousRequirement(requirement: Requirement): Requirement {
+  return Requirements[(Requirements.indexOf(requirement) - 1 + Requirements.length) % Requirements.length];
+}
+
+export const Status = {
+  NOT_STARTED: { value: 'NOT_STARTED', style: 'transparent' },
+  NEXT_TERM: { value: 'NEXT_TERM', style: 'bg-amber-500' },
+  IN_PROGRESS: { value: 'IN_PROGRESS', style: 'bg-blue-500' },
+  COMPLETED: { value: 'COMPLETED', style: 'bg-green-500' }
+};
+export const Statuses = [Status.NOT_STARTED, Status.NEXT_TERM, Status.IN_PROGRESS, Status.COMPLETED];
+export type Status = typeof Status[keyof typeof Status];
+export function nextStatus(status: Status): Status {
+  return Statuses[(Statuses.indexOf(status) + 1) % Statuses.length];
+}
+export function previousStatus(status: Status): Status {
+  return Statuses[(Statuses.indexOf(status) - 1 + Statuses.length) % Statuses.length];
+}
+
 const _courses = await (await fetch('/data/courses.json')).json();
 const courses = _courses as Course[];
 
@@ -59,8 +100,10 @@ function updateCourseRequirements(
 }
 selectedPrograms.subscribe(updateCourseRequirements);
 
-export function getCourse(discipline: string, code: string): Course | undefined {
-  const course = courses.find((c) => c.discipline === discipline && c.code === code);
+export function getCourse(discipline: string, code: string, attribute?: string): Course | undefined {
+  const anyDiscipline = discipline === '@';
+  const anyCode = code === '@';
+  const course = courses.find((c) => (anyDiscipline || c.discipline === discipline) && (anyCode || c.code === code) && (!attribute || c.attributes.some((a) => a.code === attribute)));
   if (!course) return undefined;
 
   const requirement = allDegreeRequirements.some((c) => c.discipline === discipline && c.code === code)
@@ -125,6 +168,22 @@ export function removeCourse(course: Course) {
 
 export function hasCourse(course: Course): boolean {
   return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => c.discipline === course.discipline && c.code === course.code)));
+}
+
+export function hasSomeCourseSelector(
+  courses: { discipline: string; code: string }[],
+  requirement: {
+    credits?: number;
+    courses?: number;
+  }
+) {
+  const matches = courses.map((c) => getCourse(c.discipline, c.code)).filter((c) => c && hasCourseSelector(c.discipline, c.code));
+  if (requirement.credits) {
+    const credits = matches.reduce((a, c) => a + (+c!.creditHourHigh ?? +c!.creditHourLow), 0);
+    return credits >= requirement.credits;
+  }
+  if (requirement.courses) return matches.length >= requirement.courses;
+  return false;
 }
 
 export function hasCourseSelector(discipline: string, code: string): boolean {
@@ -242,44 +301,3 @@ export type Course = {
   requirement: Requirement;
   status: Status;
 };
-
-export enum Term {
-  FALL = 'FALL',
-  WINTER = 'WINTER',
-  SPRING = 'SPRING',
-  SUMMER = 'SUMMER'
-}
-export const Terms = [Term.FALL, Term.WINTER, Term.SPRING, Term.SUMMER];
-
-export const Requirement = {
-  NONE: { value: 'NONE', style: 'border-gray-100' },
-  REQUIRED: { value: 'REQUIRED', style: 'border-red-500' },
-  BACCORE: { value: 'BACCORE', style: 'border-blue-500' },
-  MAJOR: { value: 'MAJOR', style: 'border-amber-500' },
-  CONCENTRATION: { value: 'CONCENTRATION', style: 'border-pink-500' },
-  ELECTIVE: { value: 'ELECTIVE', style: 'border-green-500' }
-};
-export const Requirements = [Requirement.NONE, Requirement.REQUIRED, Requirement.BACCORE, Requirement.MAJOR, Requirement.CONCENTRATION, Requirement.ELECTIVE];
-
-export type Requirement = typeof Requirement[keyof typeof Requirement];
-export function nextRequirement(requirement: Requirement): Requirement {
-  return Requirements[(Requirements.indexOf(requirement) + 1) % Requirements.length];
-}
-export function previousRequirement(requirement: Requirement): Requirement {
-  return Requirements[(Requirements.indexOf(requirement) - 1 + Requirements.length) % Requirements.length];
-}
-
-export const Status = {
-  NOT_STARTED: { value: 'NOT_STARTED', style: 'transparent' },
-  NEXT_TERM: { value: 'NEXT_TERM', style: 'bg-amber-500' },
-  IN_PROGRESS: { value: 'IN_PROGRESS', style: 'bg-blue-500' },
-  COMPLETED: { value: 'COMPLETED', style: 'bg-green-500' }
-};
-export const Statuses = [Status.NOT_STARTED, Status.NEXT_TERM, Status.IN_PROGRESS, Status.COMPLETED];
-export type Status = typeof Status[keyof typeof Status];
-export function nextStatus(status: Status): Status {
-  return Statuses[(Statuses.indexOf(status) + 1) % Statuses.length];
-}
-export function previousStatus(status: Status): Status {
-  return Statuses[(Statuses.indexOf(status) - 1 + Statuses.length) % Statuses.length];
-}
