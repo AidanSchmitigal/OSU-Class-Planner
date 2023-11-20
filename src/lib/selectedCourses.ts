@@ -134,7 +134,7 @@ export function hasSomeCourseSelector(
 ) {
   const matches = courses.map((c) => getCourse(c.discipline, c.code)).filter((c) => c && hasCourseSelector(c.discipline, c.code));
   if (requirement.credits) {
-    const credits = matches.reduce((a, c) => a + +(c!.creditHourLow || c!.creditHourHigh), 0);
+    const credits = matches.reduce((a, c) => a + getCredits(c!), 0);
     return credits >= requirement.credits;
   }
   if (requirement.courses) return matches.length >= requirement.courses;
@@ -162,4 +162,9 @@ export function getTermsOffered(course: Course): { year: number; terms: Term[] }
     else if (!years[yearIndex].terms.includes(term)) years[yearIndex].terms.push(term);
   });
   return years;
+}
+
+export function getCredits(course: Course): number {
+  if (course.creditHourHigh !== '') return +course.creditHourHigh;
+  return +course.creditHourLow;
 }
