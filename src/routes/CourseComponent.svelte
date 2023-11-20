@@ -1,7 +1,7 @@
 <script lang="ts">
   import { nextRequirement, type Course, nextStatus, termAbbr } from '$lib';
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
-  import { selectedCourses, getTermsOffered } from '$lib/selectedCourses';
+  import { selectedCourses, getTermsOffered, getCredits } from '$lib/selectedCourses';
 
   export let inPlanner = false;
   export let course: Course | null = null;
@@ -48,31 +48,20 @@
     <span class="uppercase font-bold">{course.discipline} {course.code}</span>
     <span class="text-[10px] text-center capitalize whitespace-break-spaces">{course.title.toLowerCase()}</span>
     <span class={`${inPlanner ? 'inline' : 'group-hover/course:inline hidden'} text-[10px] font-light`}
-      >(getCredits(course))<span class={inPlanner ? 'group-hover/course:inline hidden' : 'inline'}
+      >({getCredits(course)})<span class={inPlanner ? 'group-hover/course:inline hidden' : 'inline'}
         >{getTermsOffered(course)
           .flatMap((s) => s.terms)
           .map(termAbbr)}</span
       ></span>
   </button>
 {:else if courseData}
-  {#if courseData.discipline === 'PSEUDO'}
-    <div class="bg-gray-100 p-1">
-      <input type="text" class="w-full border-2 border-blue-500" placeholder="Enter your own classes" />
-      <div class="flex flex-wrap">
-        {course}
-        {JSON.stringify(courseData)}
-        <!-- {#each getPseudoClasses(course)} -->
-      </div>
-    </div>
-  {:else}
-    <div class="bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center">
-      <span class="uppercase font-bold">{courseData.discipline} {courseData.code}</span>
-      {#if courseData.attribute}
-        <span class="uppercase font-bold">{courseData.attribute}</span>
-      {/if}
-      <span class="text-[10px] text-center whitespace-break-spaces">UNKNOWN COURSE</span>
-    </div>
-  {/if}
+  <div class="bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center">
+    <span class="uppercase font-bold">{courseData.discipline} {courseData.code}</span>
+    {#if courseData.attribute}
+      <span class="uppercase font-bold">{courseData.attribute}</span>
+    {/if}
+    <span class="text-[10px] text-center whitespace-break-spaces">UNKNOWN COURSE</span>
+  </div>
 {:else}
   <div class="bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center">
     <span class="text-[10px] text-center whitespace-break-spaces">NO DATA PROVIDED</span>

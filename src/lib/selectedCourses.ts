@@ -1,4 +1,5 @@
-const _courses = await (await fetch('/data/courses.json')).json();
+// @ts-ignore
+const _courses = await (await fetch('/data/courses.json')).json().then((j) => (loadPart('courses'), j));
 const courses = _courses as Course[];
 
 import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status } from '$lib';
@@ -48,6 +49,8 @@ selectedCourses.subscribe((value) => {
   }
   saveLocalStore('selectedCourses', value);
 });
+export const psuedoCourses = writable<Map<string, Course[]>>(new Map(loadLocalStore('psuedoCourses')));
+psuedoCourses.subscribe((value) => saveLocalStore('psuedoCourses', Array.from(value.entries())));
 
 export function exportCourses() {
   const exportingCourses = get(selectedCourses).map((c) => ({
@@ -63,14 +66,9 @@ export function exportCourses() {
   return JSON.stringify(exportingCourses);
 }
 
-export function getCourse(discipline: string, code: string, attribute?: string): Course | undefined {
-  const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
-  const codeRegex = `^${code.split('@').join('.*')}$`;
-  const course = courses.find((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)));
+export function getCourse(discipline: string, code: string): Course | undefined {
+  const course = courses.find((c) => c.discipline === discipline && c.code === code);
   if (!course) return undefined;
-
-  // const course = courses.find((c) => c.discipline === discipline && c.code === code);
-  // if (!course) return undefined;
 
   const requirement = getCourseCategory(course);
 
@@ -79,6 +77,17 @@ export function getCourse(discipline: string, code: string, attribute?: string):
     status: Status.NOT_STARTED,
     requirement
   };
+}
+
+export function getAllCoursesMatching(discipline: string, code: string, attribute?: string): Course[] {
+  const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
+  const codeRegex = `^${code.split('@').join('.*')}$`;
+  const fcourses = courses.filter((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)));
+  return fcourses.map((course) => ({
+    ...course,
+    status: Status.NOT_STARTED,
+    requirement: getCourseCategory(course)
+  }));
 }
 
 export function addCourse(course: Course, year: number, term: Term): Course | undefined {
@@ -121,18 +130,39 @@ export function removeCourse(course: Course) {
   });
 }
 
+export function getPsuedoCourses(key: string): Course[] {
+  if (get(psuedoCourses).has(key)) return get(psuedoCourses).get(key)!;
+  psuedoCourses.update((p) => p.set(key, []));
+  return [];
+}
+
+export function addPsuedoCourse(key: string, discipline: string, code: string) {
+  const course = getCourse(discipline, code);
+  if (!course) return;
+  psuedoCourses.update((p) => {
+    const courses = p.get(key)!;
+    courses.push(course);
+    p.set(key, courses);
+    return p;
+  });
+  return course;
+}
+
 export function hasCourse(course: Course): boolean {
   return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => c.discipline === course.discipline && c.code === course.code)));
 }
 
 export function hasSomeCourseSelector(
-  courses: { discipline: string; code: string }[],
+  courses: { discipline: string; code: string; attribute?: string }[],
   requirement: {
     credits?: number;
     courses?: number;
   }
 ) {
-  const matches = courses.map((c) => getCourse(c.discipline, c.code)).filter((c) => c && hasCourseSelector(c.discipline, c.code));
+  const matches = courses
+    .filter((c) => hasCourseSelector(c.discipline, c.code, c.attribute))
+    .map((c) => getAllCoursesMatching(c.discipline, c.code, c.attribute))
+    .flat();
   if (requirement.credits) {
     const credits = matches.reduce((a, c) => a + getCredits(c!), 0);
     return credits >= requirement.credits;
@@ -141,10 +171,10 @@ export function hasSomeCourseSelector(
   return false;
 }
 
-export function hasCourseSelector(discipline: string, code: string): boolean {
-  const anyDiscipline = discipline === '@';
-  const anyCode = code === '@';
-  return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => (anyDiscipline || c.discipline === discipline) && (anyCode || c.code === code))));
+export function hasCourseSelector(discipline: string, code: string, attribute?: string): boolean {
+  const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
+  const codeRegex = `^${code.split('@').join('.*')}$`;
+  return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)))));
 }
 
 export function getPostrequisites(course: Course): Course[] {

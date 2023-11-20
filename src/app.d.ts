@@ -7,6 +7,10 @@ declare global {
     // interface PageData {}
     // interface Platform {}
   }
+
+  export function loadPart(part: string): void {
+    part;
+  }
 }
 
 export {};
