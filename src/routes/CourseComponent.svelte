@@ -19,6 +19,7 @@
     draggable="true"
     id="{course.discipline}-{course.code}"
     on:dragstart
+    on:dragend
     on:mouseenter={() => ($hoverCourse = course)}
     on:mouseleave={() => ($hoverCourse = null)}
     class={`${course.requirement.style} group/course outline-none bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center`}

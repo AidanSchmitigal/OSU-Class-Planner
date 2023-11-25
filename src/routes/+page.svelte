@@ -2,10 +2,11 @@
   import { navigating } from '$app/stores';
   import { Statuses, type Course, Term, Requirements } from '$lib';
   import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor, exportPrograms, exportMinors } from '$lib/selectedPrograms';
-  import { getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasSomeCourseSelector, exportCourses, getCredits, getAllCoursesMatching, getPsuedoCourses, addPsuedoCourse } from '$lib/selectedCourses';
+  import { getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasSomeCourseSelector, exportCourses, getCredits, getAllCoursesMatching, getPsuedoCourses, addPsuedoCourse, psuedoCourses } from '$lib/selectedCourses';
   import RuleComponent from './RuleComponent.svelte';
   import CourseComponent from './CourseComponent.svelte';
   import ShowIfClicked from './ShowIfClicked.svelte';
+  import CourseList from './CourseList.svelte';
 
   let fullScreenList = false;
 
@@ -19,12 +20,9 @@
   }
 
   function drop(event: DragEvent) {
-    console.log('a');
     event.preventDefault();
     if (!draggingCourse) return;
 
-    console.log(hoveringOver);
-    console.log(!hoveringOver || hoveringOver.year === -1);
     if (!hoveringOver || hoveringOver.year === -1) return removeCourse(draggingCourse);
     const { year, term } = hoveringOver;
 
@@ -33,9 +31,23 @@
     draggingCourse = undefined;
     hoveringOver = null;
   }
+
+  function encode(
+    courses: { discipline: string; code: string }[],
+    programs: {
+      degree: string;
+      college: string;
+      major: string;
+      concentration: string;
+    }[],
+    minors: string[]
+  ) {
+    return [courses.map((c) => `${c.discipline},${c.code}`).join('?'), programs.map((p) => `${p.degree},${p.college},${p.major},${p.concentration}`).join('?'), minors.map((m) => m).join('?')].join('!');
+  }
 </script>
 
 {#if $navigating}
+  sjkfjhsdjkfhkjsdhfkjh
   <div class="fixed inset-0 bg-white z-50 flex justify-center items-center">
     <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500" />
   </div>
@@ -56,9 +68,6 @@
     class="p-1 px-2 rounded-md border-2 border-blue-500"
     on:click={(e) => {
       const url = new URL(window.location.href);
-      url.searchParams.set('courses', exportCourses());
-      url.searchParams.set('programs', exportPrograms());
-      url.searchParams.set('minors', exportMinors());
       navigator.clipboard.writeText(url.toString());
 
       e.currentTarget.textContent = 'Copied!';
@@ -70,7 +79,6 @@
     Copy Share Link
   </button>
 </div>
-{loadPart('Header')}
 
 <input
   class="w-full border-2 border-blue-500 rounded-sm"
@@ -91,7 +99,6 @@
       dragStart(event, searchCourse);
     }} />
 {/if}
-{loadPart('Search')}
 
 <div class="flex gap-4 h-fit">
   <div class="flex gap-2 flex-col w-full">
@@ -166,7 +173,6 @@
     </div>
   </div>
 </div>
-{loadPart('Program Selector')}
 
 <div class={`flex overflow-x-scroll sticky top-0 gap-3 z-10 bg-white min-h-[25vh] ${fullScreenList ? 'h-screen max-h-screen' : 'max-h-[50vh]'}`}>
   <div class="absolute top-0 right-0 flex gap-1 items-start">
@@ -194,14 +200,14 @@
               ?.courses.reduce((acc, course) => acc + getCredits(course), 0) ?? 0)})</span>
       </span>
       <div class="flex gap-1">
-        {#each year.terms as term}
+        {#each year.terms as term, i}
           <div class="flex-col flex gap-1">
             <div>
               <span class="text-lg font-bold capitalize">{term.term}</span>
               <div>{term.courses.reduce((acc, course) => acc + getCredits(course), 0)} credits</div>
             </div>
             <div
-              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50"
+              class={`flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] ${year.year === new Date().getFullYear() && Math.floor(new Date().getMonth() / 4 + 2) % 4 === i ? 'bg-blue-100' : 'bg-gray-50'}`}
               class:hovering={hoveringOver?.year === year.year && hoveringOver?.term === term.term}
               role="group"
               on:dragenter={() => {
@@ -225,127 +231,35 @@
     </div>
   {/each}
 </div>
-{loadPart('Planner')}
 
-{#await $selectedPrograms}
-  <div>waiting</div>
-{:then _}
-  {#each $selectedPrograms as _program}
-    {#each [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }] as program}
-      {#if program.data}
-        {@const programData = program.getter(program.data)}
-        <p class="text-lg font-bold capitalize top-1/2 bg-white">
-          {programData?.description}
-        </p>
-        <details class="flex flex-col">
-          <summary>Requirements</summary>
-          {#each programData?.requirements ?? [] as rule}
-            <RuleComponent {rule} />
-          {/each}
-        </details>
-        <p class="whitespace-pre flex flex-wrap gap-2">
-          {#each programData?.courseRequirements ?? [] as courseSet}
-            {#if ($selectedCourses.length, !hasSomeCourseSelector(courseSet.courses, { credits: courseSet.creditsNeeded, courses: courseSet.coursesNeeded }))}
-              <div class={`${courseSet.courses.length > 1 ? 'bg-slate-100' : ''} flex flex-col group relative`}>
-                <p>
-                  {courseSet.courses.length == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`}
-                  <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span>
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  {#each courseSet.courses as courseData}
-                    {@const course = getCourse(courseData.discipline, courseData.code)}
-                    {#if course === undefined && courseData.discipline === 'PSEUDO'}
-                      <div class="bg-gray-100 p-1">
-                        <input
-                          type="text"
-                          class="w-full border-2 border-blue-500"
-                          placeholder="Enter your own classes"
-                          on:keydown={(e) => {
-                            if (e.key !== 'Enter') return;
-                            e.preventDefault();
-                            const [discipline, code] = e.currentTarget.value.toUpperCase().split(' ');
-                            addPsuedoCourse(programData?.key + courseSet.label, discipline, code);
-                            e.currentTarget.value = '';
-                            courseData.discipline = courseData.discipline;
-                          }} />
-                        <div class="flex flex-wrap gap-2">
-                          {#each (courseData.discipline, getPsuedoCourses(programData?.key + courseSet.label)) as pseudoCourse}
-                            <CourseComponent
-                              on:dragstart={(event) => {
-                                dragStart(event, course);
-                              }}
-                              course={pseudoCourse}
-                              courseData={{
-                                discipline: pseudoCourse.discipline,
-                                code: pseudoCourse.code
-                              }} />
-                          {/each}
-                        </div>
-                      </div>
-                    {:else if course === undefined && (courseData.discipline.includes('@') || courseData.code.includes('@'))}
-                      <ShowIfClicked title={`${courseData.discipline} ${courseData.code} ${courseData.attribute ? `| ${courseData.attribute}` : ''}`}>
-                        <div class="flex flex-wrap gap-2">
-                          {#each getAllCoursesMatching(courseData.discipline, courseData.code, courseData.attribute) as course}
-                            <CourseComponent
-                              on:dragstart={(event) => {
-                                dragStart(event, course);
-                              }}
-                              {course}
-                              {courseData} />
-                          {/each}
-                        </div>
-                      </ShowIfClicked>
-                    {:else if course === undefined || !hasCourse(course)}
-                      <CourseComponent
-                        on:dragstart={(event) => {
-                          dragStart(event, course);
-                        }}
-                        {course}
-                        {courseData} />
-                    {/if}
-                  {/each}
-                </div>
+{#each $selectedPrograms as _program}
+  {#each [...$selectedPrograms.flatMap((_program) => [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }]), ...$selectedMinors.map((minor) => ({ data: minor, getter: getMinor }))] as program}
+    {#if program.data}
+      {@const programData = program.getter(program.data)}
+      <p class="text-lg font-bold capitalize top-1/2 bg-white">
+        {programData?.description}
+      </p>
+      <details class="flex flex-col">
+        <summary>Requirements</summary>
+        {#each programData?.requirements ?? [] as rule}
+          <RuleComponent {rule} />
+        {/each}
+      </details>
+      <p class="whitespace-pre flex flex-wrap gap-2">
+        {#each programData?.courseRequirements ?? [] as courseSet}
+          {#if !hasSomeCourseSelector(courseSet.courses, { credits: courseSet.creditsNeeded, courses: courseSet.coursesNeeded })}
+            <div class={`${courseSet.courses.length > 1 ? 'bg-slate-100' : ''} flex flex-col group relative`}>
+              <p>
+                {courseSet.courses.length == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`}
+                <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span>
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <CourseList courses={courseSet.courses} psuedoKey={programData?.key + courseSet.label} {dragStart} />
               </div>
-            {/if}
-          {/each}
-        </p>
-      {/if}
-    {/each}
+            </div>
+          {/if}
+        {/each}
+      </p>
+    {/if}
   {/each}
-  {loadPart('Program Requirements')}
-
-  {#each $selectedMinors as minor}
-    {@const minorData = getMinor(minor)}
-    <p class="text-lg font-bold capitalize">
-      {minorData?.description}
-    </p>
-    <details>
-      <summary>Requirements</summary>
-      {#each minorData?.requirements ?? [] as rule}
-        <RuleComponent {rule} />
-      {/each}
-    </details>
-    <p class="whitespace-pre flex flex-wrap gap-2">
-      {#each minorData?.courseRequirements ?? [] as courseSet}
-        <div class={`${/* (courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' :  */ 'bg-slate-100'} flex flex-col`}>
-          <p>{courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`}</p>
-          <div class="flex flex-wrap gap-2">
-            {#each courseSet.courses as courseO}
-              {@const course = getCourse(courseO.discipline, courseO.code)}
-              <CourseComponent
-                on:dragstart={(event) => {
-                  dragStart(event, course);
-                }}
-                {course}
-                courseData={{
-                  discipline: courseO.discipline,
-                  code: courseO.code
-                }} />
-            {/each}
-          </div>
-        </div>
-      {/each}
-    </p>
-  {/each}
-  {loadPart('Minor Requirements')}
-{/await}
+{/each}

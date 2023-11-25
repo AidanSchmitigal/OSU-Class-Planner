@@ -54,25 +54,35 @@ function addCourseRequirementsToOBJ(_: unknown) {
 }
 
 // @ts-ignore
-const _blocks = await (await fetch('/data/blocks.json')).json().then((j) => (loadPart('blocks'), j));
-const blocks = addCourseRequirementsToOBJ(_blocks);
+const blocks = (await fetch('/data/blocks.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('blocks'), j))) as ProgramList;
 // @ts-ignore
-// import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
-const _degrees = await (await fetch('/data/degrees.json')).json().then((j) => (loadPart('degrees'), j));
-const degrees = addCourseRequirementsToOBJ(_degrees);
+const degrees = (await fetch('/data/degrees.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('degrees'), j))) as ProgramList;
 // @ts-ignore
-const _colleges = await (await fetch('/data/colleges.json')).json().then((j) => (loadPart('colleges'), j));
+const colleges = (await fetch('/data/colleges.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('colleges'), j))) as ProgramList;
 // @ts-ignore
-const colleges = addCourseRequirementsToOBJ(_colleges);
+const majors = (await fetch('/data/majors.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('majors'), j))) as ProgramList;
 // @ts-ignore
-const _majors = await (await fetch('/data/majors.json')).json().then((j) => (loadPart('majors'), j));
-const majors = addCourseRequirementsToOBJ(_majors);
+const concentrations = (await fetch('/data/concentrations.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('concentrations'), j))) as ProgramList;
 // @ts-ignore
-const _concentrations = await (await fetch('/data/concentrations.json')).json().then((j) => (loadPart('concentrations'), j));
-const concentrations = addCourseRequirementsToOBJ(_concentrations);
-// @ts-ignore
-const _minors = await (await fetch('/data/minors.json')).json().then((j) => (loadPart('minors'), j));
-const minors = addCourseRequirementsToOBJ(_minors);
+const minors = (await fetch('/data/minors.json')
+  .then((r) => r.json())
+  .then(addCourseRequirementsToOBJ)
+  .then((j) => (loadPart('minors'), j))) as ProgramList;
 
 // blocks.forEach((b) => {
 //   b.requirements.forEach(ruleToString);

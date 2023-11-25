@@ -1,6 +1,5 @@
 // @ts-ignore
-const _courses = await (await fetch('/data/courses.json')).json().then((j) => (loadPart('courses'), j));
-const courses = _courses as Course[];
+const courses = (await fetch('/data/courses.json').then((r) => r.json())) as Course[];
 
 import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status } from '$lib';
 import { get, writable } from 'svelte/store';
@@ -49,7 +48,7 @@ selectedCourses.subscribe((value) => {
   }
   saveLocalStore('selectedCourses', value);
 });
-export const psuedoCourses = writable<Map<string, Course[]>>(new Map(loadLocalStore('psuedoCourses')));
+export const psuedoCourses = writable<Map<string, { discipline: string; code: string }[]>>(new Map(loadLocalStore('psuedoCourses')));
 psuedoCourses.subscribe((value) => saveLocalStore('psuedoCourses', Array.from(value.entries())));
 
 export function exportCourses() {
@@ -130,22 +129,21 @@ export function removeCourse(course: Course) {
   });
 }
 
-export function getPsuedoCourses(key: string): Course[] {
+export function getPsuedoCourses(key: string): { discipline: string; code: string }[] {
   if (get(psuedoCourses).has(key)) return get(psuedoCourses).get(key)!;
   psuedoCourses.update((p) => p.set(key, []));
   return [];
 }
 
 export function addPsuedoCourse(key: string, discipline: string, code: string) {
-  const course = getCourse(discipline, code);
-  if (!course) return;
+  if (!getCourse(discipline, code)) return;
   psuedoCourses.update((p) => {
     const courses = p.get(key)!;
-    courses.push(course);
+    if (courses.some((c) => c.discipline === discipline && c.code === code)) return p;
+    courses.push({ discipline, code });
     p.set(key, courses);
     return p;
   });
-  return course;
 }
 
 export function hasCourse(course: Course): boolean {
