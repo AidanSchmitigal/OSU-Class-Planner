@@ -1,6 +1,6 @@
 <script lang="ts">
   import { checkIfCondition, type AnyRule, type Rule } from '$lib/requirements';
-  import { hasCourseSelector, selectedCourses, type Requirement } from '$lib/selectedCourses';
+  import { hasCourseSelector, selectedCourses } from '$lib/selectedCourses';
   import { getBlock } from '$lib/selectedPrograms';
   import RuleComponent from './RuleComponent.svelte';
 

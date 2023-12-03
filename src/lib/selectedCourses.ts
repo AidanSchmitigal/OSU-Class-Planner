@@ -1,20 +1,27 @@
 // @ts-ignore
-const courses = (await fetch('/data/courses.json').then((r) => r.json())) as Course[];
+import { courses, allProgramsLoaded } from '$lib/selectedPrograms';
 
-import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status } from '$lib';
+import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status, Requirement } from '$lib';
 import { get, writable } from 'svelte/store';
-import { getCourseCategory } from './selectedPrograms';
 
 function importCourses(courses: string) {
-  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string }[] }[] }[];
+  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string, status: Status, requirement: Requirement }[] }[] }[];
   if (!importedCourses) return;
-  return importedCourses.map((c) => ({
+  allProgramsLoaded.then(() => {
+  selectedCourses.set(importedCourses.map((c) => ({
     year: c.year,
     terms: c.terms.map((t) => ({
       term: t.term,
-      courses: t.courses.map((c) => getCourse(c.discipline, c.code)!)
+      courses: t.courses.map((c) => {
+        const course = getCourse(c.discipline, c.code)!
+        course.status = c.status;
+        course.requirement = c.requirement;
+        return course;
+      }),
     }))
-  }));
+  })));
+  });
+  return []
 }
 
 export const selectedCourses = writable<{ year: number; terms: { term: Term; courses: Course[] }[] }[]>(
@@ -58,34 +65,34 @@ export function exportCourses() {
       term: t.term,
       courses: t.courses.map((c) => ({
         discipline: c.discipline,
-        code: c.code
+        code: c.code,
+        status: c.status,
+        requirement: c.requirement
       }))
     }))
   }));
   return JSON.stringify(exportingCourses);
 }
 
-export function getCourse(discipline: string, code: string): Course | undefined {
+export function getCourse(discipline: string, code: string, assignedRequirement?: Requirement): Course | undefined {
   const course = courses.find((c) => c.discipline === discipline && c.code === code);
   if (!course) return undefined;
-
-  const requirement = getCourseCategory(course);
 
   return {
     ...course,
     status: Status.NOT_STARTED,
-    requirement
+    requirement: assignedRequirement ?? Requirement.NONE
   };
 }
 
-export function getAllCoursesMatching(discipline: string, code: string, attribute?: string): Course[] {
+export function getAllCoursesMatching(discipline: string, code: string, attribute?: string, assignedRequirement?: Requirement): Course[] {
   const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
   const codeRegex = `^${code.split('@').join('.*')}$`;
   const fcourses = courses.filter((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)));
   return fcourses.map((course) => ({
     ...course,
     status: Status.NOT_STARTED,
-    requirement: getCourseCategory(course)
+    requirement: assignedRequirement ?? Requirement.NONE
   }));
 }
 
