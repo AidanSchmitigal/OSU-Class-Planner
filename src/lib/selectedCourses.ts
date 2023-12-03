@@ -1,11 +1,11 @@
 // @ts-ignore
 import { courses, allProgramsLoaded } from '$lib/selectedPrograms';
 
-import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status, Requirement } from '$lib';
+import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status, Requirement, Statuses, Requirements } from '$lib';
 import { get, writable } from 'svelte/store';
 
 function importCourses(courses: string) {
-  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string, status: Status, requirement: Requirement }[] }[] }[];
+  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string, status: string, requirement: string }[] }[] }[];
   if (!importedCourses) return;
   allProgramsLoaded.then(() => {
   selectedCourses.set(importedCourses.map((c) => ({
@@ -14,8 +14,8 @@ function importCourses(courses: string) {
       term: t.term,
       courses: t.courses.map((c) => {
         const course = getCourse(c.discipline, c.code)!
-        course.status = c.status;
-        course.requirement = c.requirement;
+        course.status = Statuses.find((s) => s.value === c.status)!;
+        course.requirement = Requirements.find((r) => r.value === c.requirement)!;
         return course;
       }),
     }))
@@ -66,8 +66,8 @@ export function exportCourses() {
       courses: t.courses.map((c) => ({
         discipline: c.discipline,
         code: c.code,
-        status: c.status,
-        requirement: c.requirement
+        status: c.status.value,
+        requirement: c.requirement.value
       }))
     }))
   }));
