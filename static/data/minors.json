@@ -63889,6 +63889,1148 @@
     ]
   },
   {
+    "key": "748",
+    "description": "Studio Art",
+    "requirements": [
+      {
+        "label": "2-D Core Studio",
+        "labelTag": "ART115",
+        "percentComplete": "98",
+        "ruleId": "1",
+        "nodeId": "87",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "inProgressIncomplete": "Yes",
+        "ruleType": "Course",
+        "classesApplied": "1",
+        "creditsApplied": "4",
+        "classesAppliedToRule": {
+          "classArray": [
+            {
+              "discipline": "ART",
+              "number": "115",
+              "credits": "4",
+              "letterGrade": "TBD",
+              "id": "0075"
+            }
+          ]
+        },
+        "requirement": {
+          "classesBegin": "1",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "115",
+              "nodeId": "88",
+              "newDiscipline": "Yes"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "89",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(OTHER = ART_CORE, MAJOR = 880)"]
+            }
+          ]
+        }
+      },
+      {
+        "label": "3-D Core Studio",
+        "labelTag": "ART117",
+        "percentComplete": "0",
+        "ruleId": "2",
+        "nodeId": "92",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "ruleType": "Course",
+        "classesApplied": "0",
+        "creditsApplied": "0",
+        "classesAppliedToRule": {},
+        "requirement": {
+          "classesBegin": "1",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "117",
+              "nodeId": "93",
+              "newDiscipline": "Yes"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "94",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(OTHER = ART_CORE, MAJOR = 880)"]
+            }
+          ]
+        },
+        "advice": {
+          "classes": "1",
+          "connector": ", ",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "117",
+              "title": "3-D CORE STUDIO",
+              "credits": "4",
+              "newDiscipline": "Yes"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Drawing Core Studio",
+        "labelTag": "ART131",
+        "percentComplete": "0",
+        "ruleId": "3",
+        "nodeId": "97",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "ruleType": "Course",
+        "classesApplied": "0",
+        "creditsApplied": "0",
+        "classesAppliedToRule": {},
+        "requirement": {
+          "classesBegin": "1",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "131",
+              "nodeId": "98",
+              "newDiscipline": "Yes"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "99",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(OTHER = ART_CORE, MAJOR = 880)"]
+            }
+          ]
+        },
+        "advice": {
+          "classes": "1",
+          "connector": ", ",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "131",
+              "title": "DRAWING CORE STUDIO",
+              "credits": "4",
+              "newDiscipline": "Yes"
+            }
+          ]
+        }
+      },
+      {
+        "label": "200 Level Studio Elective",
+        "labelTag": "STUD2",
+        "percentComplete": "0",
+        "ruleId": "4",
+        "nodeId": "102",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "ruleType": "Course",
+        "classesApplied": "0",
+        "creditsApplied": "0",
+        "classesAppliedToRule": {},
+        "requirement": {
+          "classesBegin": "1",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "234",
+              "nodeId": "103",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "263",
+              "nodeId": "104"
+            },
+            {
+              "discipline": "ART",
+              "number": "281",
+              "nodeId": "105"
+            },
+            {
+              "discipline": "ART",
+              "number": "291",
+              "nodeId": "106"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "107",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(CONC, OTHER = C879)"]
+            }
+          ]
+        },
+        "advice": {
+          "classes": "1",
+          "connector": ", ",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "234",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING II: FIGURE",
+              "credits": "4",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "263",
+              "title": "DIGITAL PHOTOGRAPHY",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "281",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING I",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "291",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE I",
+              "credits": "4"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Upper-Division Studio Electives",
+        "labelTag": "STUD",
+        "percentComplete": "0",
+        "ruleId": "5",
+        "nodeId": "110",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "ruleType": "Course",
+        "classesApplied": "0",
+        "creditsApplied": "0",
+        "classesAppliedToRule": {},
+        "requirement": {
+          "creditsBegin": "12",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "431",
+              "hideFromAdvice": "Yes",
+              "nodeId": "111",
+              "priority": "HighPriority",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "434",
+              "hideFromAdvice": "Yes",
+              "nodeId": "112",
+              "priority": "HighPriority"
+            },
+            {
+              "discipline": "ART",
+              "number": "475",
+              "hideFromAdvice": "Yes",
+              "nodeId": "113",
+              "priority": "HighPriority"
+            },
+            {
+              "discipline": "ART",
+              "number": "479",
+              "hideFromAdvice": "Yes",
+              "nodeId": "114",
+              "priority": "HighPriority"
+            },
+            {
+              "discipline": "ART",
+              "number": "481",
+              "hideFromAdvice": "Yes",
+              "nodeId": "115",
+              "priority": "HighPriority"
+            },
+            {
+              "discipline": "ART",
+              "number": "491",
+              "hideFromAdvice": "Yes",
+              "nodeId": "116",
+              "priority": "HighPriority"
+            },
+            {
+              "discipline": "ART",
+              "number": "331",
+              "nodeId": "117"
+            },
+            {
+              "discipline": "ART",
+              "number": "334",
+              "nodeId": "118"
+            },
+            {
+              "discipline": "ART",
+              "number": "351",
+              "nodeId": "119"
+            },
+            {
+              "discipline": "ART",
+              "number": "375",
+              "nodeId": "120"
+            },
+            {
+              "discipline": "ART",
+              "number": "376",
+              "nodeId": "121"
+            },
+            {
+              "discipline": "ART",
+              "number": "377",
+              "nodeId": "122"
+            },
+            {
+              "discipline": "ART",
+              "number": "378",
+              "nodeId": "123"
+            },
+            {
+              "discipline": "ART",
+              "number": "379",
+              "nodeId": "124"
+            },
+            {
+              "discipline": "ART",
+              "number": "381",
+              "nodeId": "125"
+            },
+            {
+              "discipline": "ART",
+              "number": "382",
+              "nodeId": "126"
+            },
+            {
+              "discipline": "ART",
+              "number": "383",
+              "nodeId": "127"
+            },
+            {
+              "discipline": "ART",
+              "number": "384",
+              "nodeId": "128"
+            },
+            {
+              "discipline": "ART",
+              "number": "391",
+              "nodeId": "129"
+            },
+            {
+              "discipline": "ART",
+              "number": "422",
+              "nodeId": "130"
+            },
+            {
+              "discipline": "ART",
+              "number": "431",
+              "nodeId": "131"
+            },
+            {
+              "discipline": "ART",
+              "number": "434",
+              "nodeId": "132"
+            },
+            {
+              "discipline": "ART",
+              "number": "475",
+              "nodeId": "133"
+            },
+            {
+              "discipline": "ART",
+              "number": "479",
+              "nodeId": "134"
+            },
+            {
+              "discipline": "ART",
+              "number": "481",
+              "nodeId": "135"
+            },
+            {
+              "discipline": "ART",
+              "number": "491",
+              "nodeId": "136"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "137",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(CONC, OTHER = C879)"]
+            }
+          ]
+        },
+        "advice": {
+          "credits": "12",
+          "connector": ", ",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "331",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING CONCEPTS",
+              "credits": "4",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "334",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING III: FIGURE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "351",
+              "prerequisiteExists": "Y",
+              "title": "INSTALLATION",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "375",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: RELIEF",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "376",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: INTAGLIO",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "377",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: LITHOGRAPHY",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "378",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: MONOTYPE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "379",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: SCREEN PRINTING",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "381",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: THE FIGURE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "382",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: CONCEPTS",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "383",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: ABSTRACT & MULTIM",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "384",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: NEW GENRE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "391",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE II",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "422",
+              "prerequisiteExists": "Y",
+              "title": "NEW MEDIA: INTERACTIVE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "431",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING IV",
+              "credits": "3",
+              "creditsHigh": "5",
+              "creditsIndicator": "TO"
+            },
+            {
+              "discipline": "ART",
+              "number": "434",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING IV/FIGURE",
+              "credits": "3",
+              "creditsHigh": "5",
+              "creditsIndicator": "TO"
+            },
+            {
+              "discipline": "ART",
+              "number": "475",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING STUDIO",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "479",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: ADV SCREEN PRINT",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "481",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING III",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "491",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE III",
+              "credits": "4"
+            }
+          ]
+        }
+      },
+      {
+        "label": "Additional Elective",
+        "labelTag": "STUDE",
+        "percentComplete": "0",
+        "ruleId": "6",
+        "nodeId": "140",
+        "nodeType": "4200",
+        "indentLevel": "1",
+        "ruleType": "Course",
+        "classesApplied": "0",
+        "creditsApplied": "0",
+        "classesAppliedToRule": {},
+        "requirement": {
+          "creditsBegin": "3",
+          "classCreditOperator": "OR",
+          "connector": ",",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "215",
+              "nodeId": "141",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "222",
+              "nodeId": "142"
+            },
+            {
+              "discipline": "ART",
+              "number": "234",
+              "nodeId": "143"
+            },
+            {
+              "discipline": "ART",
+              "number": "263",
+              "nodeId": "144"
+            },
+            {
+              "discipline": "ART",
+              "number": "271",
+              "nodeId": "145"
+            },
+            {
+              "discipline": "ART",
+              "number": "281",
+              "nodeId": "146"
+            },
+            {
+              "discipline": "ART",
+              "number": "291",
+              "nodeId": "147"
+            },
+            {
+              "discipline": "ART",
+              "number": "331",
+              "nodeId": "148"
+            },
+            {
+              "discipline": "ART",
+              "number": "334",
+              "nodeId": "149"
+            },
+            {
+              "discipline": "ART",
+              "number": "340",
+              "nodeId": "150"
+            },
+            {
+              "discipline": "ART",
+              "number": "341",
+              "nodeId": "151"
+            },
+            {
+              "discipline": "ART",
+              "number": "345",
+              "nodeId": "152"
+            },
+            {
+              "discipline": "ART",
+              "number": "347",
+              "nodeId": "153"
+            },
+            {
+              "discipline": "ART",
+              "number": "348",
+              "nodeId": "154"
+            },
+            {
+              "discipline": "ART",
+              "number": "349",
+              "nodeId": "155",
+              "crossListed": "Parent",
+              "courseArray": [
+                {
+                  "discipline": "NMC",
+                  "number": "349",
+                  "nodeId": "156",
+                  "newDiscipline": "Yes",
+                  "crossListed": "Child",
+                  "withArray": [
+                    {
+                      "code": "DWTERM",
+                      "operator": ">=",
+                      "connector": "AND",
+                      "valueList": ["2014 Spring"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "discipline": "ART",
+              "number": "351",
+              "nodeId": "159"
+            },
+            {
+              "discipline": "ART",
+              "number": "354",
+              "nodeId": "160"
+            },
+            {
+              "discipline": "ART",
+              "number": "375",
+              "nodeId": "161"
+            },
+            {
+              "discipline": "ART",
+              "number": "376",
+              "nodeId": "162"
+            },
+            {
+              "discipline": "ART",
+              "number": "377",
+              "nodeId": "163"
+            },
+            {
+              "discipline": "ART",
+              "number": "378",
+              "nodeId": "164"
+            },
+            {
+              "discipline": "ART",
+              "number": "379",
+              "nodeId": "165"
+            },
+            {
+              "discipline": "ART",
+              "number": "381",
+              "nodeId": "166"
+            },
+            {
+              "discipline": "ART",
+              "number": "382",
+              "nodeId": "167"
+            },
+            {
+              "discipline": "ART",
+              "number": "383",
+              "nodeId": "168"
+            },
+            {
+              "discipline": "ART",
+              "number": "384",
+              "nodeId": "169"
+            },
+            {
+              "discipline": "ART",
+              "number": "391",
+              "nodeId": "170"
+            },
+            {
+              "discipline": "ART",
+              "number": "422",
+              "nodeId": "171"
+            },
+            {
+              "discipline": "ART",
+              "number": "431",
+              "nodeId": "172"
+            },
+            {
+              "discipline": "ART",
+              "number": "434",
+              "nodeId": "173"
+            },
+            {
+              "discipline": "ART",
+              "number": "441",
+              "nodeId": "174"
+            },
+            {
+              "discipline": "ART",
+              "number": "443",
+              "nodeId": "175"
+            },
+            {
+              "discipline": "ART",
+              "number": "444",
+              "nodeId": "176"
+            },
+            {
+              "discipline": "ART",
+              "number": "446",
+              "nodeId": "177"
+            },
+            {
+              "discipline": "ART",
+              "number": "447",
+              "nodeId": "178"
+            },
+            {
+              "discipline": "ART",
+              "number": "454",
+              "nodeId": "179"
+            },
+            {
+              "discipline": "ART",
+              "number": "475",
+              "nodeId": "180"
+            },
+            {
+              "discipline": "ART",
+              "number": "479",
+              "nodeId": "181"
+            },
+            {
+              "discipline": "ART",
+              "number": "481",
+              "nodeId": "182"
+            },
+            {
+              "discipline": "ART",
+              "number": "491",
+              "nodeId": "183"
+            }
+          ],
+          "qualifierArray": [
+            {
+              "nodeId": "184",
+              "nodeType": "4141",
+              "applied": "",
+              "name": "LOWESTPRIORITY",
+              "text": "LowestPriority"
+            },
+            {
+              "nodeId": "185",
+              "nodeType": "4111",
+              "applied": "",
+              "name": "NONEXCLUSIVE",
+              "text": "ShareWith ",
+              "subTextList": ["(CONC, OTHER = C879)"]
+            }
+          ]
+        },
+        "advice": {
+          "credits": "3",
+          "connector": ", ",
+          "courseArray": [
+            {
+              "discipline": "ART",
+              "number": "215",
+              "prerequisiteExists": "Y",
+              "title": "COLOR IN THE VISUAL ARTS",
+              "credits": "4",
+              "newDiscipline": "Yes"
+            },
+            {
+              "discipline": "ART",
+              "number": "222",
+              "prerequisiteExists": "Y",
+              "title": "INTRODUCTION TO TIME-BASED ART",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "234",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING II: FIGURE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "263",
+              "title": "DIGITAL PHOTOGRAPHY",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "271",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING I",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "281",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING I",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "291",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE I",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "331",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING CONCEPTS",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "334",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING III: FIGURE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "340",
+              "title": "DARKROOM PHOTOGRAPHY I",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "341",
+              "prerequisiteExists": "Y",
+              "title": "DARKROOM PHOTOGRAPHY II",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "345",
+              "prerequisiteExists": "Y",
+              "title": "INTERMEDIATE PHOTOGRAPHY",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "347",
+              "prerequisiteExists": "Y",
+              "title": "PHOTOGRAPH: STUDIO LIGHTING",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "348",
+              "prerequisiteExists": "Y",
+              "title": "CONCEPTS IN DIGITAL IMAGING",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "349",
+              "prerequisiteExists": "Y",
+              "title": "VIDEO ART",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR",
+              "crossListed": "Parent",
+              "courseArray": [
+                {
+                  "discipline": "NMC",
+                  "number": "349",
+                  "withAdvice": "Term >= 2014 Spring",
+                  "prerequisiteExists": "Y",
+                  "title": "VIDEO ART",
+                  "credits": "4",
+                  "creditsHigh": "0",
+                  "creditsIndicator": "OR",
+                  "crossListed": "Child",
+                  "newDiscipline": "Yes"
+                }
+              ]
+            },
+            {
+              "discipline": "ART",
+              "number": "351",
+              "prerequisiteExists": "Y",
+              "title": "INSTALLATION",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "354",
+              "prerequisiteExists": "Y",
+              "title": "ALT PROCESSES IN PHOTOGRAPHY",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "375",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: RELIEF",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "376",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: INTAGLIO",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "377",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: LITHOGRAPHY",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "378",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: MONOTYPE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "379",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: SCREEN PRINTING",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "381",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: THE FIGURE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "382",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: CONCEPTS",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "383",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: ABSTRACT & MULTIM",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "384",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING II: NEW GENRE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "391",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE II",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "422",
+              "prerequisiteExists": "Y",
+              "title": "NEW MEDIA: INTERACTIVE",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "431",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING IV",
+              "credits": "3",
+              "creditsHigh": "5",
+              "creditsIndicator": "TO"
+            },
+            {
+              "discipline": "ART",
+              "number": "434",
+              "prerequisiteExists": "Y",
+              "title": "DRAWING IV/FIGURE",
+              "credits": "3",
+              "creditsHigh": "5",
+              "creditsIndicator": "TO"
+            },
+            {
+              "discipline": "ART",
+              "number": "441",
+              "prerequisiteExists": "Y",
+              "title": "ADVANCED DARKROOM",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "443",
+              "prerequisiteExists": "Y",
+              "title": "COMBINED MEDIA: PHOTO INSTALL",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "444",
+              "prerequisiteExists": "Y",
+              "title": "THE CONSTRUCTED IMAGE",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "446",
+              "prerequisiteExists": "Y",
+              "title": "DOCUMENTARY PHOTOGRAPHY",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "447",
+              "prerequisiteExists": "Y",
+              "title": "ADVANCED STUDIO LIGHTING",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "454",
+              "prerequisiteExists": "Y",
+              "title": "ALT PROCESSES IN PHOTO II",
+              "credits": "4",
+              "creditsHigh": "0",
+              "creditsIndicator": "OR"
+            },
+            {
+              "discipline": "ART",
+              "number": "475",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING STUDIO",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "479",
+              "prerequisiteExists": "Y",
+              "title": "PRINTMAKING: ADV SCREEN PRINT",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "481",
+              "prerequisiteExists": "Y",
+              "title": "PAINTING III",
+              "credits": "4"
+            },
+            {
+              "discipline": "ART",
+              "number": "491",
+              "prerequisiteExists": "Y",
+              "title": "SCULPTURE III",
+              "credits": "4"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "key": "950",
     "description": "Music",
     "requirements": [
