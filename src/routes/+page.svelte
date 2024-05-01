@@ -183,7 +183,16 @@
   </div>
   {#each $selectedCourses as year}
     <div class="flex flex-col">
-      {year.year} ({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + getCredits(course), 0), 0)} credits)
+      <span>
+        {year.year}
+        <span>({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + getCredits(course), 0), 0)} credits)</span>
+        <span
+          >(School Year {year.terms.reduce((acc, term) => acc + (term.term == Term.FALL ? 0 : term.courses.reduce((acc, course) => acc + getCredits(course), 0)), 0) +
+            ($selectedCourses
+              .find((y) => y.year == year.year - 1)
+              ?.terms.find((t) => t.term == Term.FALL)
+              ?.courses.reduce((acc, course) => acc + getCredits(course), 0) ?? 0)})</span>
+      </span>
       <div class="flex gap-1">
         {#each year.terms as term}
           <div class="flex-col flex gap-1">
@@ -222,7 +231,7 @@
   <div>waiting</div>
 {:then _}
   {#each $selectedPrograms as _program}
-    {#each [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }] as program (program.data)}
+    {#each [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }] as program}
       {#if program.data}
         {@const programData = program.getter(program.data)}
         <p class="text-lg font-bold capitalize top-1/2 bg-white">
@@ -276,7 +285,7 @@
                     {:else if course === undefined && (courseData.discipline.includes('@') || courseData.code.includes('@'))}
                       <ShowIfClicked title={`${courseData.discipline} ${courseData.code} ${courseData.attribute ? `| ${courseData.attribute}` : ''}`}>
                         <div class="flex flex-wrap gap-2">
-                          {#each getAllCoursesMatching(courseData.discipline, courseData.code, courseData.attribute) as course (course.discipline + course.code)}
+                          {#each getAllCoursesMatching(courseData.discipline, courseData.code, courseData.attribute) as course}
                             <CourseComponent
                               on:dragstart={(event) => {
                                 dragStart(event, course);
