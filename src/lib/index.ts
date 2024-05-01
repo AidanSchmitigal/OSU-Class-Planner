@@ -1,8 +1,8 @@
 import coursesData from './classes.json';
 import majorsData from './majors.json';
 import baccoreData from './baccore.json';
-
 import { selectedMajor } from './selectedCourses';
+import { get } from 'svelte/store';
 
 export type Major = {
   majorCode: string;
@@ -51,7 +51,7 @@ export function getCourseData(discipline: string, code: string | number): Course
   if (!foundClass) return console.log(`Could not find course ${discipline} ${code}`), undefined;
 
   let requirement = Requirement.NONE;
-  if (selectedMajor?.courses.find((c) => c.find((c) => c.discipline === discipline && c.number === code))) {
+  if (get(selectedMajor)?.courses.find((c) => c.find((c) => c.discipline === discipline && c.number === code))) {
     requirement = Requirement.MAJOR;
   } else if (baccoreData.find((b) => b.courses.find((c) => c.discipline === discipline && c.number === code))) {
     requirement = Requirement.BACCORE;
