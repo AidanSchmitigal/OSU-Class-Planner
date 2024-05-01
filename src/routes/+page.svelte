@@ -1,6 +1,6 @@
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { type Course, Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse } from '$lib/selectedCourses';
+  import { type Course, Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasCourseSelector, hasSomeCourseSelector } from '$lib/selectedCourses';
   import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor } from '$lib/selectedPrograms';
   import { ruleToString, getCourseRquirements, checkIfCondition } from '$lib/requirements';
   import RuleComponent from './RuleComponent.svelte';
@@ -162,15 +162,15 @@
   {#each $selectedCourses as year}
     <div class="flex flex-col">
       {year.year} ({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0), 0)} credits)
-      <div class="flex gap-1 h-full">
+      <div class="flex gap-1">
         {#each year.terms as term}
-          <div class="flex-col flex gap-1 h-full">
+          <div class="flex-col flex gap-1">
             <div>
               <span class="text-lg font-bold capitalize">{term.term}</span>
               <div>{term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0)} credits</div>
             </div>
             <div
-              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] h-full bg-gray-50"
+              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50"
               class:hovering={hoveringOver?.year === year.year && hoveringOver?.term === term.term}
               role="group"
               on:dragenter={() => {
@@ -199,7 +199,7 @@
   {#each [{ data: _program.degree, getter: getDegree }, { data: _program.college, getter: getCollege }, { data: _program.major, getter: getMajor }, { data: _program.concentration, getter: getConcentration }] as program}
     {#if program.data}
       {@const programData = program.getter(program.data)}
-      <p class="text-lg font-bold capitalize">
+      <p class="text-lg font-bold capitalize sticky top-1/2 bg-white">
         {programData?.description}
       </p>
       <details class="flex flex-col">
@@ -210,23 +210,27 @@
       </details>
       <p class="whitespace-pre flex flex-wrap gap-2">
         {#each programData?.courseRequirements ?? [] as courseSet}
-          <div class={`${(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : 'bg-slate-100'} flex flex-col group relative`}>
-            <p>{(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`} <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span></p>
-            <div class="flex flex-wrap gap-2">
-              {#each courseSet.courses as courseO}
-                {@const course = getCourse(courseO.discipline, courseO.code)}
-                <CourseComponent
-                  on:dragstart={(event) => {
-                    dragStart(event, course);
-                  }}
-                  {course}
-                  courseData={{
-                    discipline: courseO.discipline,
-                    code: courseO.code
-                  }} />
-              {/each}
+          {#if ($selectedCourses.length, !hasSomeCourseSelector(courseSet.courses, { credits: courseSet.creditsNeeded, courses: courseSet.coursesNeeded }))}
+            <div class={`${courseSet.courses.length > 1 ? 'bg-slate-100' : ''} flex flex-col group relative`}>
+              <p>{(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`} <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span></p>
+              <div class="flex flex-wrap gap-2">
+                {#each courseSet.courses as courseO}
+                  {@const course = getCourse(courseO.discipline, courseO.code, courseO.attribute)}
+                  {#if course === undefined || !hasCourse(course)}
+                    <CourseComponent
+                      on:dragstart={(event) => {
+                        dragStart(event, course);
+                      }}
+                      {course}
+                      courseData={{
+                        discipline: courseO.discipline,
+                        code: courseO.code
+                      }} />
+                  {/if}
+                {/each}
+              </div>
             </div>
-          </div>
+          {/if}
         {/each}
       </p>
     {/if}

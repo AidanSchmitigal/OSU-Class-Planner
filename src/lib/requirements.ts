@@ -74,6 +74,7 @@ type CourseRequirement = Rule & {
     courseArray: {
       discipline: string;
       number: string;
+      withArray?: { code: string; valueList: string[] }[];
     }[];
   };
 };
@@ -209,33 +210,32 @@ function getCourseRequirementsForIf(rule: IfRequirement): {
     code: string;
   }[];
 }[] {
-  const leftCondition = rule.requirement.leftCondition;
-  const leftCourses = getCourseRequirementsForCondition(leftCondition);
-  const rightCourses = rule.requirement.elsePart ? getCourseRequirementsForCondition(leftCondition) : [];
+  const leftCourses = rule.requirement.ifPart.ruleArray.flatMap(getCourseRquirements);
+  const rightCourses = rule.requirement.elsePart ? rule.requirement.elsePart.ruleArray.flatMap(getCourseRquirements) : [];
   return [...leftCourses, ...rightCourses];
 }
 
-function getCourseRequirementsForCondition(
-  condition:
-    | Condition
-    | {
-        relationalOperator: RelationalOperator;
-      }
-): {
-  coursesNeeded?: number;
-  creditsNeeded?: number;
-  courses: {
-    discipline: string;
-    code: string;
-  }[];
-}[] {
-  if (condition.relationalOperator) {
-    return [];
-  }
-  const leftCourses = getCourseRequirementsForCondition(condition.leftCondition);
-  const rightCourses = condition.rightCondition ? getCourseRequirementsForCondition(condition.rightCondition) : [];
-  return [...leftCourses, ...rightCourses];
-}
+// function getCourseRequirementsForCondition(
+//   condition:
+//     | Condition
+//     | {
+//         relationalOperator: RelationalOperator;
+//       }
+// ): {
+//   coursesNeeded?: number;
+//   creditsNeeded?: number;
+//   courses: {
+//     discipline: string;
+//     code: string;
+//   }[];
+// }[] {
+//   if (condition.relationalOperator) {
+//     return [];
+//   }
+//   const leftCourses = getCourseRequirementsForCondition(condition.leftCondition);
+//   const rightCourses = condition.rightCondition ? getCourseRequirementsForCondition(condition.rightCondition) : [];
+//   return [...leftCourses, ...rightCourses];
+// }
 
 function getCourseRequirementsForBlock(rule: BlockRequirement) {
   return getBlock(rule.requirement.value)?.courseRequirements ?? [];
@@ -249,6 +249,7 @@ function getCourseRequirementsForRule(rule: CourseRequirement): {
   courses: {
     discipline: string;
     code: string;
+    attribute?: string;
   }[];
 } {
   const coursesNeeded = rule.requirement.classesBegin ? parseInt(rule.requirement.classesBegin) : undefined;
@@ -258,7 +259,8 @@ function getCourseRequirementsForRule(rule: CourseRequirement): {
     code: string;
   }[] = rule.requirement.courseArray.map((c) => ({
     discipline: c.discipline,
-    code: c.number
+    code: c.number,
+    attribute: c.withArray ? c.withArray.find((w) => w.code === 'ATTRIBUTE')?.valueList[0] : undefined
   }));
   return {
     label: rule.label,

@@ -68,6 +68,7 @@ type ProgramList = {
     courses: {
       discipline: string;
       code: string;
+      attribute?: string;
     }[];
   }[];
 }[];
