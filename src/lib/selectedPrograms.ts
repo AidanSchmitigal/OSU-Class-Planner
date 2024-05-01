@@ -16,8 +16,7 @@ function updateCourseRequirements(
   allCollegeRequirements = programs.flatMap((p) => (getCollege(p.college)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
   allMajorRequirements = programs.flatMap((p) => (getMajor(p.major)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
   allConcentrationRequirements = programs.flatMap((p) => (getConcentration(p.concentration)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  // allBaccalaureateRequirements = programs.flatMap((p) => getDegree(p.degree)?.baccalaureateRequirements ?? []);
-  allBaccalaureateRequirements = [];
+  allBaccalaureateRequirements = blocks.flatMap((p) => p.courseRequirements ?? []).flatMap((r) => r.courses);
 }
 
 export function getCourseCategory(course: Course) {
@@ -55,24 +54,24 @@ function addCourseRequirementsToOBJ(_: unknown) {
 }
 
 // @ts-ignore
-const _blocks = await (await fetch('/data/blocks.json')).json();
+const _blocks = await (await fetch('/data/blocks.json')).json().then((j) => (loadPart('blocks'), j));
 const blocks = addCourseRequirementsToOBJ(_blocks);
 // @ts-ignore
 // import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
-const _degrees = await (await fetch('/data/degrees.json')).json();
+const _degrees = await (await fetch('/data/degrees.json')).json().then((j) => (loadPart('degrees'), j));
 const degrees = addCourseRequirementsToOBJ(_degrees);
 // @ts-ignore
-const _colleges = await (await fetch('/data/colleges.json')).json();
+const _colleges = await (await fetch('/data/colleges.json')).json().then((j) => (loadPart('colleges'), j));
 // @ts-ignore
 const colleges = addCourseRequirementsToOBJ(_colleges);
 // @ts-ignore
-const _majors = await (await fetch('/data/majors.json')).json();
+const _majors = await (await fetch('/data/majors.json')).json().then((j) => (loadPart('majors'), j));
 const majors = addCourseRequirementsToOBJ(_majors);
 // @ts-ignore
-const _concentrations = await (await fetch('/data/concentrations.json')).json();
+const _concentrations = await (await fetch('/data/concentrations.json')).json().then((j) => (loadPart('concentrations'), j));
 const concentrations = addCourseRequirementsToOBJ(_concentrations);
 // @ts-ignore
-const _minors = await (await fetch('/data/minors.json')).json();
+const _minors = await (await fetch('/data/minors.json')).json().then((j) => (loadPart('minors'), j));
 const minors = addCourseRequirementsToOBJ(_minors);
 
 // blocks.forEach((b) => {
