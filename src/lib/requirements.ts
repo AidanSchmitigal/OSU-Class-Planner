@@ -334,7 +334,7 @@ export function checkIfCondition(
     const listFunc = operator === '===' ? (d: string[]) => d.some(compare) : (d: string[]) => d.every(compare);
     let comp;
     switch (left) {
-      case '-COURSE-':
+      case '-COURSE-': {
         const course = condition.relationalOperator.courseArray![0];
         const taken = get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => c.discipline === course.discipline && c.code === course.number)));
         return {
@@ -346,6 +346,7 @@ export function checkIfCondition(
             }
           ]
         };
+      }
       case 'SCHOOL':
         comp = compare('1');
         return {

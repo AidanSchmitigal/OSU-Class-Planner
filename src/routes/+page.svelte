@@ -2,7 +2,7 @@
   import { navigating } from '$app/stores';
   import { Statuses, type Course, Term, Requirements } from '$lib';
   import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor, exportPrograms, exportMinors } from '$lib/selectedPrograms';
-  import { getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasSomeCourseSelector, exportCourses } from '$lib/selectedCourses';
+  import { getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasSomeCourseSelector, exportCourses, getCredits } from '$lib/selectedCourses';
   import RuleComponent from './RuleComponent.svelte';
   import CourseComponent from './CourseComponent.svelte';
 
@@ -179,13 +179,13 @@
   </div>
   {#each $selectedCourses as year}
     <div class="flex flex-col">
-      {year.year} ({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0), 0)} credits)
+      {year.year} ({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + getCredits(course), 0), 0)} credits)
       <div class="flex gap-1">
         {#each year.terms as term}
           <div class="flex-col flex gap-1">
             <div>
               <span class="text-lg font-bold capitalize">{term.term}</span>
-              <div>{term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0)} credits</div>
+              <div>{term.courses.reduce((acc, course) => acc + getCredits(course), 0)} credits</div>
             </div>
             <div
               class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50"
@@ -233,6 +233,7 @@
               <p>{(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`} <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span></p>
               <div class="flex flex-wrap gap-2">
                 {#each courseSet.courses as courseO}
+                  {JSON.stringify(courseO)}
                   {@const course = getCourse(courseO.discipline, courseO.code, courseO.attribute)}
                   {#if course === undefined || !hasCourse(course)}
                     <CourseComponent
