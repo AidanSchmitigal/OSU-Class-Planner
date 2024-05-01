@@ -1,42 +1,4 @@
-let allDegreeRequirements: { discipline: string; code: string }[] = [];
-let allCollegeRequirements: { discipline: string; code: string }[] = [];
-let allMajorRequirements: { discipline: string; code: string }[] = [];
-let allConcentrationRequirements: { discipline: string; code: string }[] = [];
-let allBaccalaureateRequirements: { discipline: string; code: string }[] = [];
-
-function updateCourseRequirements(
-  programs: {
-    degree: string;
-    college: string;
-    major: string;
-    concentration: string;
-  }[]
-) {
-  allDegreeRequirements = programs.flatMap((p) => (getDegree(p.degree)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allCollegeRequirements = programs.flatMap((p) => (getCollege(p.college)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allMajorRequirements = programs.flatMap((p) => (getMajor(p.major)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allConcentrationRequirements = programs.flatMap((p) => (getConcentration(p.concentration)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allBaccalaureateRequirements = blocks.flatMap((p) => p.courseRequirements ?? []).flatMap((r) => r.courses);
-}
-
-export function getCourseCategory(course: Course) {
-  const equals = (c: { discipline: string; code: string }) => c.discipline === course.discipline && c.code === course.code;
-  return allDegreeRequirements.some(equals)
-    ? Requirement.REQUIRED //
-    : allCollegeRequirements.some(equals)
-      ? Requirement.REQUIRED
-      : allMajorRequirements.some(equals)
-        ? Requirement.MAJOR
-        : allConcentrationRequirements.some(equals)
-          ? Requirement.CONCENTRATION
-          : allBaccalaureateRequirements.some(equals)
-            ? Requirement.BACCORE
-            : Requirement.ELECTIVE;
-}
-
-// @ts-ignore
-const _degreeTree = await (await fetch('/data/degreeTree.json')).json();
-const degreeTree = _degreeTree as {
+let degreeTree: {
   degree: string;
   colleges: {
     college: string;
@@ -46,6 +8,7 @@ const degreeTree = _degreeTree as {
     }[];
   }[];
 }[];
+
 function addCourseRequirementsToOBJ(_: unknown) {
   return (_ as unknown as ProgramList).map((e) => ({
     ...e,
@@ -53,36 +16,55 @@ function addCourseRequirementsToOBJ(_: unknown) {
   })) as ProgramList;
 }
 
+/** REMOVED TOP LEVEL AWAIT BECUASE OF silly SAFARI */
 // @ts-ignore
-const blocks = (await fetch('/data/blocks.json')
+let blocks: ProgramList;
+let degrees: ProgramList;
+let colleges: ProgramList;
+let majors: ProgramList;
+let concentrations: ProgramList;
+let minors: ProgramList;
+
+export let courses: Course[];
+
+export const allProgramsLoaded = new Promise(async (resolve) => {
+  await fetch('/data/degreeTree.json').then((r) => r.json())
+.then((j) => (loadPart('degree Tree'), degreeTree = j))
+
+  await fetch('/data/blocks.json')
   .then((r) => r.json())
   .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('blocks'), j))) as ProgramList;
-// @ts-ignore
-const degrees = (await fetch('/data/degrees.json')
+  .then((j) => (loadPart('blocks'), blocks = j));
+await (fetch('/data/degrees.json')
   .then((r) => r.json())
+  
   .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('degrees'), j))) as ProgramList;
-// @ts-ignore
-const colleges = (await fetch('/data/colleges.json')
+  .then((j) => (loadPart('degrees'), degrees = j)));
+await (fetch('/data/colleges.json')
   .then((r) => r.json())
+  
   .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('colleges'), j))) as ProgramList;
-// @ts-ignore
-const majors = (await fetch('/data/majors.json')
+  .then((j) => (loadPart('colleges'), colleges = j)));
+await (fetch('/data/majors.json')
   .then((r) => r.json())
+  
   .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('majors'), j))) as ProgramList;
-// @ts-ignore
-const concentrations = (await fetch('/data/concentrations.json')
+  .then((j) => (loadPart('majors'), majors = j)));
+await (fetch('/data/concentrations.json')
   .then((r) => r.json())
+  
   .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('concentrations'), j))) as ProgramList;
-// @ts-ignore
-const minors = (await fetch('/data/minors.json')
-  .then((r) => r.json())
-  .then(addCourseRequirementsToOBJ)
-  .then((j) => (loadPart('minors'), j))) as ProgramList;
+  .then((j) => (loadPart('concentrations'), concentrations = j)));
+await (fetch('/data/minors.json')
+.then((r) => r.json())
+
+.then(addCourseRequirementsToOBJ)
+.then((j) => (loadPart('minors'), minors = j)));
+
+await fetch('/data/courses.json').then((r) => r.json()).then((j) => (loadPart('courses'), courses = j))
+
+  resolve(true);
+});
 
 // blocks.forEach((b) => {
 //   b.requirements.forEach(ruleToString);
@@ -142,7 +124,6 @@ export const selectedPrograms = writable<
 >(loadedFromURL ? importPrograms(urlParams.get('programs')!) : loadLocalStore('selectedPrograms') ?? []);
 selectedPrograms.subscribe((value) => {
   if (!loadedFromURL) saveLocalStore('selectedPrograms', value);
-  updateCourseRequirements(value);
 });
 export const selectedMinors = writable<string[]>(loadedFromURL ? importMinors(urlParams.get('minors')!) : loadLocalStore('selectedMinors') ?? []);
 selectedMinors.subscribe((value) => {

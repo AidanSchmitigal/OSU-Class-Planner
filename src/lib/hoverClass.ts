@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Course } from './selectedCourses';
+import type { Course } from '$lib';
 
 export const hoverCourse = writable<Course | null>(null);
 

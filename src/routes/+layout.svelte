@@ -2,12 +2,17 @@
   import { loadedFromURL } from '$lib';
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
   import { getPostrequisites, getTermsOffered } from '$lib/selectedCourses';
+  import { allProgramsLoaded } from '$lib/selectedPrograms';
 
   import '../app.css';
 
   document.getElementById('prepage-load-loading')?.remove();
+
 </script>
 
+{#await allProgramsLoaded}
+  Loading
+{:then _}
 {#if loadedFromURL}
   <div class="stick top-0 w-full flex justify-center items-center bg-amber-200 font-mono py-1 text-sm">Content here was loaded from the URL and will not save!</div>
 {/if}
@@ -100,3 +105,5 @@
 <div class="p-2 gap-1 flex flex-col text-xs">
   <slot />
 </div>
+
+{/await}

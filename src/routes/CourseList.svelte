@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Course } from '$lib';
+  import type { Course, Requirement } from '$lib';
   import { addPsuedoCourse, getAllCoursesMatching, getCourse, getPsuedoCourses, hasCourse } from '$lib/selectedCourses';
   import CourseComponent from './CourseComponent.svelte';
   import CourseList from './CourseList.svelte';
@@ -12,6 +12,7 @@
   }[];
   export let psuedoKey: string;
   export let dragStart: (event: DragEvent, course: Course) => void;
+  export let requirement: Requirement;
 
   let psuedoInput = '';
   let rerenderOnDrag = false;
@@ -35,17 +36,18 @@
         }} />
       <div class="flex flex-wrap gap-2">
         {#key psuedoInput}
-          <CourseList courses={getPsuedoCourses(psuedoKey)} psuedoKey={psuedoKey + '_'} {dragStart} />
+          <CourseList courses={getPsuedoCourses(psuedoKey)} psuedoKey={psuedoKey + '_'} {dragStart} {requirement} />
         {/key}
       </div>
     </div>
   {:else if course === undefined && (courseData.discipline.includes('@') || courseData.code.includes('@'))}
     <ShowIfClicked title={`${courseData.discipline} ${courseData.code} ${courseData.attribute ? `| ${courseData.attribute}` : ''}`}>
       <div class="flex flex-wrap gap-2">
-        <CourseList courses={getAllCoursesMatching(courseData.discipline, courseData.code, courseData.attribute)} {psuedoKey} {dragStart} />
+        <CourseList courses={getAllCoursesMatching(courseData.discipline, courseData.code, courseData.attribute)} {psuedoKey} {dragStart} {requirement} />
       </div>
     </ShowIfClicked>
   {:else if course === undefined || !hasCourse(course) || (rerenderOnDrag && !rerenderOnDrag)}
+    {(course ? course.requirement = requirement : '', '')}
     <CourseComponent
       on:dragstart={(event) => {
         if (course === undefined) return;
