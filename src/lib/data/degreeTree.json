@@ -1,0 +1,649 @@
+[
+  {
+    "degree": "BA",
+    "colleges": [
+      {
+        "college": "02",
+        "majors": [
+          { "major": "181", "concentrations": ["754", "624", "786", "201", "491", "043", "190", "782", "744", "020", "694"] },
+          { "major": "183", "concentrations": ["754", "190"] },
+          { "major": "182", "concentrations": ["754", "190", "029"] },
+          { "major": "196", "concentrations": ["754", "190"] },
+          { "major": "799", "concentrations": ["754", "190"] },
+          { "major": "291", "concentrations": [] },
+          { "major": "851", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      { "college": "03", "majors": [{ "major": "233", "concentrations": ["60", "62", "63", "65", "59", "66", "67", "68", "69", "70"] }] },
+      {
+        "college": "16",
+        "majors": [
+          { "major": "307", "concentrations": ["354", "334", "004"] },
+          { "major": "298", "concentrations": [] },
+          { "major": "303", "concentrations": [] },
+          { "major": "306", "concentrations": [] },
+          { "major": "338", "concentrations": [] },
+          { "major": "311", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "10",
+        "majors": [
+          { "major": "860", "concentrations": ["854", "864", "855", "863"] },
+          { "major": "880", "concentrations": ["881", "829", "828"] },
+          { "major": "885", "concentrations": ["898", "889", "886", "888"] },
+          { "major": "920", "concentrations": ["922"] },
+          { "major": "950", "concentrations": ["937"] },
+          { "major": "960", "concentrations": ["691", "471", "634"] },
+          { "major": "980", "concentrations": ["995", "642", "014"] },
+          { "major": "865", "concentrations": [] },
+          { "major": "092", "concentrations": [] },
+          { "major": "473", "concentrations": [] },
+          { "major": "890", "concentrations": [] },
+          { "major": "894", "concentrations": [] },
+          { "major": "925", "concentrations": [] },
+          { "major": "930", "concentrations": [] },
+          { "major": "900", "concentrations": [] },
+          { "major": "910", "concentrations": [] },
+          { "major": "074", "concentrations": [] },
+          { "major": "955", "concentrations": [] },
+          { "major": "965", "concentrations": [] },
+          { "major": "977", "concentrations": [] },
+          { "major": "940", "concentrations": [] },
+          { "major": "985", "concentrations": [] },
+          { "major": "041", "concentrations": [] },
+          { "major": "808", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "08",
+        "majors": [
+          { "major": "520", "concentrations": ["519", "521", "518", "523", "303", "516", "504", "505", "522", "690"] },
+          { "major": "590", "concentrations": ["589", "586", "588", "592", "593", "587", "594"] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "01",
+        "majors": [{ "major": "910", "concentrations": [] }]
+      },
+      {
+        "college": "05",
+        "majors": [{ "major": "910", "concentrations": [] }]
+      },
+      {
+        "college": "24",
+        "majors": [{ "major": "910", "concentrations": [] }]
+      },
+      {
+        "college": "23",
+        "majors": [{ "major": "910", "concentrations": [] }]
+      }
+    ]
+  },
+  {
+    "degree": "BFA",
+    "colleges": [
+      {
+        "college": "10",
+        "majors": [
+          { "major": "880", "concentrations": ["831", "830"] },
+          { "major": "473", "concentrations": [] },
+          { "major": "779", "concentrations": [] },
+          { "major": "479", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "BM",
+    "colleges": [
+      {
+        "college": "10",
+        "majors": [{ "major": "093", "concentrations": ["095", "096", "097", "098", "094"] }]
+      }
+    ]
+  },
+  {
+    "degree": "BS",
+    "colleges": [
+      {
+        "college": "01",
+        "majors": [
+          { "major": "125", "concentrations": ["709", "707", "708", "693", "712"] },
+          { "major": "858", "concentrations": ["918", "917", "914"] },
+          { "major": "113", "concentrations": ["127", "114", "815", "116", "816", "117", "138", "627", "118", "149", "142", "993", "626"] },
+          { "major": "515", "concentrations": ["008", "932", "931", "934", "935"] },
+          { "major": "120", "concentrations": ["784", "160", "007"] },
+          { "major": "033", "concentrations": ["635", "141", "136"] },
+          { "major": "145", "concentrations": ["007", "792", "614", "798", "632", "613"] },
+          { "major": "259", "concentrations": [] },
+          { "major": "897", "concentrations": [] },
+          { "major": "237", "concentrations": [] },
+          { "major": "018", "concentrations": [] },
+          { "major": "292", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "02",
+        "majors": [
+          { "major": "641", "concentrations": ["754", "190", "051"] },
+          { "major": "400", "concentrations": ["754", "020"] },
+          { "major": "181", "concentrations": ["754", "624", "786", "201", "491", "043", "190", "782", "744", "020", "694"] },
+          { "major": "899", "concentrations": ["754", "903", "902", "904", "190", "020"] },
+          { "major": "183", "concentrations": ["754", "190"] },
+          { "major": "912", "concentrations": ["754", "020", "780"] },
+          { "major": "182", "concentrations": ["754", "190", "029"] },
+          { "major": "458", "concentrations": ["754", "020", "780"] },
+          { "major": "196", "concentrations": ["754", "190"] },
+          { "major": "799", "concentrations": ["754", "190"] },
+          { "major": "416", "concentrations": ["754", "020"] },
+          { "major": "453", "concentrations": ["754"] },
+          { "major": "454", "concentrations": ["754"] },
+          { "major": "075", "concentrations": ["754", "190"] },
+          { "major": "851", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "03",
+        "majors": [
+          { "major": "233", "concentrations": ["60", "62", "63", "65", "59", "66", "67", "68", "69", "70"] },
+          { "major": "057", "concentrations": ["054", "053"] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "16",
+        "majors": [
+          { "major": "307", "concentrations": ["354", "334", "004", "297"] },
+          { "major": "323", "concentrations": ["016", "015", "355"] },
+          { "major": "317", "concentrations": ["957", "833"] },
+          { "major": "321", "concentrations": ["A006", "A001", "A002", "A003", "A005", "A004", "A007"] },
+          { "major": "326", "concentrations": ["602"] },
+          { "major": "826", "concentrations": [] },
+          { "major": "298", "concentrations": [] },
+          { "major": "303", "concentrations": [] },
+          { "major": "306", "concentrations": [] },
+          { "major": "338", "concentrations": [] },
+          { "major": "450", "concentrations": [] },
+          { "major": "039", "concentrations": [] },
+          { "major": "311", "concentrations": [] },
+          { "major": "327", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "05",
+        "majors": [
+          { "major": "820", "concentrations": ["822", "823", "824"] },
+          { "major": "671", "concentrations": ["787", "663", "672", "673", "675", "676", "735", "689", "679", "791", "685", "687"] },
+          { "major": "872", "concentrations": ["873", "874"] },
+          { "major": "017", "concentrations": ["478", "288", "289"] },
+          { "major": "380", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "10",
+        "majors": [
+          { "major": "860", "concentrations": ["854", "864", "855", "863"] },
+          { "major": "880", "concentrations": ["881", "829", "828"] },
+          { "major": "885", "concentrations": ["898", "889", "886", "888"] },
+          { "major": "920", "concentrations": ["922"] },
+          { "major": "950", "concentrations": ["937"] },
+          { "major": "960", "concentrations": ["691", "471", "634"] },
+          { "major": "980", "concentrations": ["995", "642", "014"] },
+          { "major": "865", "concentrations": [] },
+          { "major": "473", "concentrations": [] },
+          { "major": "894", "concentrations": [] },
+          { "major": "930", "concentrations": [] },
+          { "major": "900", "concentrations": [] },
+          { "major": "074", "concentrations": [] },
+          { "major": "955", "concentrations": [] },
+          { "major": "965", "concentrations": [] },
+          { "major": "801", "concentrations": [] },
+          { "major": "977", "concentrations": [] },
+          { "major": "985", "concentrations": [] },
+          { "major": "870", "concentrations": [] },
+          { "major": "041", "concentrations": [] },
+          { "major": "808", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "08",
+        "majors": [
+          { "major": "606", "concentrations": ["576", "595", "775", "603", "583", "585", "597"] },
+          { "major": "506", "concentrations": ["928", "927", "926"] },
+          { "major": "971", "concentrations": ["972", "973", "974"] },
+          { "major": "509", "concentrations": ["715", "517", "027", "743", "713", "226", "714", "584"] },
+          { "major": "520", "concentrations": ["519", "521", "518", "523", "303", "516", "504", "505", "522", "690"] },
+          { "major": "560", "concentrations": ["692", "737", "234", "658"] },
+          { "major": "570", "concentrations": ["736", "607"] },
+          { "major": "590", "concentrations": ["589", "586", "588", "592", "593", "587", "594", "777"] },
+          { "major": "870", "concentrations": [] },
+          { "major": "620", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "24",
+        "majors": [
+          { "major": "657", "concentrations": ["842", "845", "501", "916", "843", "848", "849", "844", "847"] },
+          { "major": "090", "concentrations": [] },
+          { "major": "896", "concentrations": [] },
+          { "major": "034", "concentrations": [] },
+          { "major": "025", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "25",
+        "majors": [
+          { "major": "810", "concentrations": ["822", "823", "824"] },
+          { "major": "825", "concentrations": [] },
+          { "major": "361", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "23",
+        "majors": [
+          { "major": "447", "concentrations": ["228", "838", "441", "430"] },
+          { "major": "840", "concentrations": ["732"] },
+          { "major": "466", "concentrations": ["091", "419", "261", "467", "652"] },
+          { "major": "239", "concentrations": ["022", "242", "241"] },
+          { "major": "870", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "HBA",
+    "colleges": [
+      {
+        "college": "02",
+        "majors": [
+          { "major": "181", "concentrations": ["754", "624", "786", "201", "491", "043", "190", "782", "744", "020", "694"] },
+          { "major": "183", "concentrations": ["754", "190"] },
+          { "major": "182", "concentrations": ["754", "190", "029"] },
+          { "major": "196", "concentrations": ["754", "190"] },
+          { "major": "799", "concentrations": ["754", "190"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "851", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "03",
+        "majors": [
+          { "major": "233", "concentrations": ["60", "62", "63", "65", "59", "66", "67", "68", "69", "70"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "16",
+        "majors": [
+          { "major": "307", "concentrations": ["354", "334", "004"] },
+          { "major": "298", "concentrations": [] },
+          { "major": "303", "concentrations": [] },
+          { "major": "306", "concentrations": [] },
+          { "major": "338", "concentrations": [] },
+          { "major": "311", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "10",
+        "majors": [
+          { "major": "860", "concentrations": ["854", "864", "855", "863"] },
+          { "major": "880", "concentrations": ["881", "829", "828"] },
+          { "major": "885", "concentrations": ["898", "889", "886", "888"] },
+          { "major": "920", "concentrations": ["922"] },
+          { "major": "950", "concentrations": ["937"] },
+          { "major": "960", "concentrations": ["691", "471", "634"] },
+          { "major": "980", "concentrations": ["995", "642", "014"] },
+          { "major": "865", "concentrations": [] },
+          { "major": "092", "concentrations": [] },
+          { "major": "473", "concentrations": [] },
+          { "major": "890", "concentrations": [] },
+          { "major": "894", "concentrations": [] },
+          { "major": "925", "concentrations": [] },
+          { "major": "930", "concentrations": [] },
+          { "major": "900", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] },
+          { "major": "074", "concentrations": [] },
+          { "major": "955", "concentrations": [] },
+          { "major": "965", "concentrations": [] },
+          { "major": "977", "concentrations": [] },
+          { "major": "940", "concentrations": [] },
+          { "major": "985", "concentrations": [] },
+          { "major": "041", "concentrations": [] },
+          { "major": "808", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "08",
+        "majors": [
+          { "major": "520", "concentrations": ["519", "521", "518", "523", "303", "516", "504", "505", "522", "690"] },
+          { "major": "590", "concentrations": ["589", "586", "588", "592", "593", "587", "594"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "01",
+        "majors": [
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "05",
+        "majors": [
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      },
+      { "college": "24", "majors": [{ "major": "910", "concentrations": [] }] },
+      {
+        "college": "23",
+        "majors": [
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "910", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "HBFA",
+    "colleges": [
+      {
+        "college": "10",
+        "majors": [
+          { "major": "880", "concentrations": ["831", "830"] },
+          { "major": "473", "concentrations": [] },
+          { "major": "779", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "479", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "HBM",
+    "colleges": [
+      {
+        "college": "10",
+        "majors": [
+          { "major": "093", "concentrations": ["095", "096", "097", "098", "094"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "HBS",
+    "colleges": [
+      {
+        "college": "01",
+        "majors": [
+          { "major": "125", "concentrations": ["709", "707", "708", "693", "712"] },
+          { "major": "858", "concentrations": ["918", "917", "914"] },
+          { "major": "113", "concentrations": ["127", "114", "815", "116", "816", "117", "138", "627", "118", "149", "142", "993", "626"] },
+          { "major": "515", "concentrations": ["008", "932", "931", "934", "935"] },
+          { "major": "120", "concentrations": ["784", "160", "007"] },
+          { "major": "033", "concentrations": ["635", "141", "136"] },
+          { "major": "145", "concentrations": ["007", "792", "614", "798", "632", "613"] },
+          { "major": "259", "concentrations": [] },
+          { "major": "897", "concentrations": [] },
+          { "major": "237", "concentrations": [] },
+          { "major": "018", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "292", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "02",
+        "majors": [
+          { "major": "641", "concentrations": ["754", "190", "051"] },
+          { "major": "400", "concentrations": ["754", "020"] },
+          { "major": "181", "concentrations": ["754", "786", "043", "190", "782", "020", "694"] },
+          { "major": "899", "concentrations": ["754", "903", "902", "904", "190", "020"] },
+          { "major": "183", "concentrations": ["754", "190"] },
+          { "major": "912", "concentrations": ["754", "020"] },
+          { "major": "182", "concentrations": ["754", "190", "029"] },
+          { "major": "458", "concentrations": ["754", "020", "780"] },
+          { "major": "196", "concentrations": ["754", "190"] },
+          { "major": "799", "concentrations": ["754", "190"] },
+          { "major": "416", "concentrations": ["754", "020"] },
+          { "major": "453", "concentrations": ["754"] },
+          { "major": "454", "concentrations": ["754"] },
+          { "major": "075", "concentrations": ["754", "190"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "851", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "03",
+        "majors": [
+          { "major": "233", "concentrations": ["60", "62", "63", "65", "59", "66", "67", "68", "69", "70"] },
+          { "major": "057", "concentrations": ["054", "053"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "16",
+        "majors": [
+          { "major": "307", "concentrations": ["354", "334", "004", "297"] },
+          { "major": "323", "concentrations": ["016", "015", "355"] },
+          { "major": "317", "concentrations": ["957", "833"] },
+          { "major": "321", "concentrations": ["A006", "A001", "A002", "A003", "A005", "A004", "A007"] },
+          { "major": "326", "concentrations": ["602"] },
+          { "major": "826", "concentrations": [] },
+          { "major": "298", "concentrations": [] },
+          { "major": "303", "concentrations": [] },
+          { "major": "306", "concentrations": [] },
+          { "major": "338", "concentrations": [] },
+          { "major": "450", "concentrations": [] },
+          { "major": "039", "concentrations": [] },
+          { "major": "293", "concentrations": [] },
+          { "major": "311", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "327", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "05",
+        "majors": [
+          { "major": "820", "concentrations": ["822", "823", "824"] },
+          { "major": "671", "concentrations": ["787", "663", "672", "673", "675", "676", "735", "689", "679", "791", "685", "687"] },
+          { "major": "872", "concentrations": ["873", "874"] },
+          { "major": "017", "concentrations": ["478", "288", "289"] },
+          { "major": "380", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "10",
+        "majors": [
+          { "major": "860", "concentrations": ["854", "864", "855", "863"] },
+          { "major": "880", "concentrations": ["881", "829", "828"] },
+          { "major": "885", "concentrations": ["898", "889", "886", "888"] },
+          { "major": "920", "concentrations": ["922"] },
+          { "major": "950", "concentrations": ["937"] },
+          { "major": "960", "concentrations": ["691", "471", "634"] },
+          { "major": "980", "concentrations": ["995", "642", "014"] },
+          { "major": "865", "concentrations": [] },
+          { "major": "473", "concentrations": [] },
+          { "major": "894", "concentrations": [] },
+          { "major": "930", "concentrations": [] },
+          { "major": "900", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "074", "concentrations": [] },
+          { "major": "955", "concentrations": [] },
+          { "major": "965", "concentrations": [] },
+          { "major": "801", "concentrations": [] },
+          { "major": "977", "concentrations": [] },
+          { "major": "985", "concentrations": [] },
+          { "major": "870", "concentrations": [] },
+          { "major": "041", "concentrations": [] },
+          { "major": "808", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "08",
+        "majors": [
+          { "major": "606", "concentrations": ["576", "595", "775", "603", "583", "585", "597"] },
+          { "major": "506", "concentrations": ["928", "927", "926"] },
+          { "major": "971", "concentrations": ["972", "973", "974"] },
+          { "major": "509", "concentrations": ["715", "517", "027", "743", "713", "226", "714", "584"] },
+          { "major": "520", "concentrations": ["519", "521", "518", "523", "303", "516", "504", "505", "522", "690"] },
+          { "major": "560", "concentrations": ["692", "737", "234", "658"] },
+          { "major": "570", "concentrations": ["736", "607"] },
+          { "major": "590", "concentrations": ["589", "586", "588", "592", "593", "587", "594", "777"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "870", "concentrations": [] },
+          { "major": "620", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "24",
+        "majors": [
+          { "major": "657", "concentrations": ["842", "845", "501", "916", "843", "848", "849", "844", "847"] },
+          { "major": "090", "concentrations": [] },
+          { "major": "896", "concentrations": [] },
+          { "major": "034", "concentrations": [] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "025", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "25",
+        "majors": [
+          { "major": "810", "concentrations": ["822", "823", "824"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "825", "concentrations": [] },
+          { "major": "361", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "23",
+        "majors": [
+          { "major": "447", "concentrations": ["228", "838", "441", "430"] },
+          { "major": "840", "concentrations": ["732"] },
+          { "major": "466", "concentrations": ["091", "419", "261", "467", "652"] },
+          { "major": "239", "concentrations": ["022", "242", "241"] },
+          { "major": "012", "concentrations": [] },
+          { "major": "011", "concentrations": [] },
+          { "major": "870", "concentrations": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "degree": "CERT",
+    "colleges": [
+      {
+        "college": "01",
+        "majors": [
+          { "major": "C825", "concentrations": [] },
+          { "major": "C437", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C815", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "02",
+        "majors": [
+          { "major": "C825", "concentrations": [] },
+          { "major": "C540", "concentrations": [] },
+          { "major": "C437", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C190", "concentrations": [] },
+          { "major": "C815", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "16",
+        "majors": [
+          { "major": "C825", "concentrations": [] },
+          { "major": "C300", "concentrations": [] },
+          { "major": "C540", "concentrations": [] },
+          { "major": "C437", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C815", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "05",
+        "majors": [
+          { "major": "C825", "concentrations": [] },
+          { "major": "C437", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C815", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "10",
+        "majors": [
+          { "major": "C315", "concentrations": [] },
+          { "major": "C800", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C868", "concentrations": [] },
+          { "major": "C815", "concentrations": [] },
+          { "major": "C750", "concentrations": [] },
+          { "major": "C808", "concentrations": [] },
+          { "major": "C310", "concentrations": [] }
+        ]
+      },
+      {
+        "college": "08",
+        "majors": [
+          { "major": "C825", "concentrations": [] },
+          { "major": "C437", "concentrations": [] },
+          { "major": "C700", "concentrations": [] },
+          { "major": "C810", "concentrations": [] },
+          { "major": "C815", "concentrations": [] }
+        ]
+      },
+      { "college": "24", "majors": [{ "major": "C540", "concentrations": [] }] },
+      { "college": "23", "majors": [{ "major": "C437", "concentrations": [] }] }
+    ]
+  }
+]

@@ -1,0 +1,506 @@
+[
+  {
+    "key": "563",
+    "description": "Actuarial Science"
+  },
+  {
+    "key": "905",
+    "description": "Aerospace Engineering"
+  },
+  {
+    "key": "804",
+    "description": "Aerospace Studies"
+  },
+  {
+    "key": "959",
+    "description": "Agricultural and Food Business Management"
+  },
+  {
+    "key": "104",
+    "description": "Agricultural Business Manageme"
+  },
+  {
+    "key": "077",
+    "description": "Agricultural Education"
+  },
+  {
+    "key": "857",
+    "description": "Agricultural Sci & Natural Resources Communication"
+  },
+  {
+    "key": "106",
+    "description": "Agricultural Sciences"
+  },
+  {
+    "key": "125",
+    "description": "Animal Sciences"
+  },
+  {
+    "key": "860",
+    "description": "Anthropology"
+  },
+  {
+    "key": "796",
+    "description": "Applied Journalism"
+  },
+  {
+    "key": "881",
+    "description": "Art History"
+  },
+  {
+    "key": "913",
+    "description": "Arts, Media, and Technology"
+  },
+  {
+    "key": "939",
+    "description": "Asian Languages and Cultures"
+  },
+  {
+    "key": "938",
+    "description": "Asian Studies"
+  },
+  {
+    "key": "046",
+    "description": "Biochemistry and Molecular Biology"
+  },
+  {
+    "key": "929",
+    "description": "Biological Data Sciences"
+  },
+  {
+    "key": "509",
+    "description": "Biology"
+  },
+  {
+    "key": "515",
+    "description": "Botany"
+  },
+  {
+    "key": "803",
+    "description": "Business"
+  },
+  {
+    "key": "574",
+    "description": "Business and Entrepreneurship"
+  },
+  {
+    "key": "044",
+    "description": "Business Information Systems"
+  },
+  {
+    "key": "520",
+    "description": "Chemistry"
+  },
+  {
+    "key": "983",
+    "description": "Communication"
+  },
+  {
+    "key": "477",
+    "description": "Comparative International Agriculture"
+  },
+  {
+    "key": "249",
+    "description": "Computer Science"
+  },
+  {
+    "key": "802",
+    "description": "Contemplative Studies"
+  },
+  {
+    "key": "119",
+    "description": "Crop Science"
+  },
+  {
+    "key": "A008",
+    "description": "Cybersecurity Management"
+  },
+  {
+    "key": "052",
+    "description": "Design and Innovation Management"
+  },
+  {
+    "key": "776",
+    "description": "Digital Communication Arts"
+  },
+  {
+    "key": "835",
+    "description": "Earth Sciences"
+  },
+  {
+    "key": "885",
+    "description": "Economics"
+  },
+  {
+    "key": "495",
+    "description": "Education"
+  },
+  {
+    "key": "890",
+    "description": "English"
+  },
+  {
+    "key": "472",
+    "description": "Entomology"
+  },
+  {
+    "key": "809",
+    "description": "Entrepreneurship"
+  },
+  {
+    "key": "747",
+    "description": "Environmental and Occupational Health"
+  },
+  {
+    "key": "962",
+    "description": "Environmental Economics and Policy"
+  },
+  {
+    "key": "310",
+    "description": "Environmental Engineering"
+  },
+  {
+    "key": "961",
+    "description": "Environmental Law and Policy"
+  },
+  {
+    "key": "704",
+    "description": "Environmental Safety & Health"
+  },
+  {
+    "key": "758",
+    "description": "Environmental Sciences"
+  },
+  {
+    "key": "894",
+    "description": "Ethnic Studies"
+  },
+  {
+    "key": "752",
+    "description": "Exercise Physiology"
+  },
+  {
+    "key": "783",
+    "description": "Family Business"
+  },
+  {
+    "key": "141",
+    "description": "Fermentation Science"
+  },
+  {
+    "key": "268",
+    "description": "Film Studies"
+  },
+  {
+    "key": "813",
+    "description": "Finance"
+  },
+  {
+    "key": "734",
+    "description": "Fisheries and Wildlife Sciences"
+  },
+  {
+    "key": "797",
+    "description": "Food Manufacturing"
+  },
+  {
+    "key": "136",
+    "description": "Food Science"
+  },
+  {
+    "key": "137",
+    "description": "Food Technology"
+  },
+  {
+    "key": "706",
+    "description": "Forestry"
+  },
+  {
+    "key": "925",
+    "description": "French"
+  },
+  {
+    "key": "545",
+    "description": "Geography"
+  },
+  {
+    "key": "550",
+    "description": "Geology"
+  },
+  {
+    "key": "013",
+    "description": "Geomatics Engineering Minor"
+  },
+  {
+    "key": "930",
+    "description": "German"
+  },
+  {
+    "key": "711",
+    "description": "Global Development Studies"
+  },
+  {
+    "key": "079",
+    "description": "Global Health"
+  },
+  {
+    "key": "999",
+    "description": "Graphic Design"
+  },
+  {
+    "key": "906",
+    "description": "Guitar"
+  },
+  {
+    "key": "465",
+    "description": "Health Management & Policy"
+  },
+  {
+    "key": "900",
+    "description": "History"
+  },
+  {
+    "key": "145",
+    "description": "Horticulture"
+  },
+  {
+    "key": "839",
+    "description": "Human Development and Family Sciences"
+  },
+  {
+    "key": "769",
+    "description": "Humanitarian Engineering"
+  },
+  {
+    "key": "024",
+    "description": "Indigenous Studies"
+  },
+  {
+    "key": "076",
+    "description": "Industrial Engineering"
+  },
+  {
+    "key": "042",
+    "description": "Innovation and Entrpreneurship"
+  },
+  {
+    "key": "107",
+    "description": "International Agricultural Dev"
+  },
+  {
+    "key": "476",
+    "description": "International Engineering"
+  },
+  {
+    "key": "304",
+    "description": "Irrigation Engineering"
+  },
+  {
+    "key": "267",
+    "description": "Leadership"
+  },
+  {
+    "key": "031",
+    "description": "Marine Biology"
+  },
+  {
+    "key": "788",
+    "description": "Marine Conservation and Management"
+  },
+  {
+    "key": "814",
+    "description": "Marketing"
+  },
+  {
+    "key": "764",
+    "description": "Materials Science"
+  },
+  {
+    "key": "560",
+    "description": "Mathematics"
+  },
+  {
+    "key": "055",
+    "description": "Merchandising Management"
+  },
+  {
+    "key": "416",
+    "description": "Merchandising Management"
+  },
+  {
+    "key": "570",
+    "description": "Microbiology"
+  },
+  {
+    "key": "909",
+    "description": "Military History"
+  },
+  {
+    "key": "805",
+    "description": "Military Science"
+  },
+  {
+    "key": "950",
+    "description": "Music"
+  },
+  {
+    "key": "936",
+    "description": "Music Performance"
+  },
+  {
+    "key": "643",
+    "description": "Natural Resources"
+  },
+  {
+    "key": "806",
+    "description": "Naval Science"
+  },
+  {
+    "key": "619",
+    "description": "New Media Communications"
+  },
+  {
+    "key": "327",
+    "description": "Nuclear Engineering"
+  },
+  {
+    "key": "426",
+    "description": "Nutrition"
+  },
+  {
+    "key": "660",
+    "description": "Oceanography"
+  },
+  {
+    "key": "818",
+    "description": "Organizational Leadership"
+  },
+  {
+    "key": "083",
+    "description": "Outdoor Products"
+  },
+  {
+    "key": "955",
+    "description": "Philosophy"
+  },
+  {
+    "key": "893",
+    "description": "Photography"
+  },
+  {
+    "key": "590",
+    "description": "Physics"
+  },
+  {
+    "key": "960",
+    "description": "Political Science"
+  },
+  {
+    "key": "253",
+    "description": "Popular Music Studies"
+  },
+  {
+    "key": "817",
+    "description": "Professional Sales"
+  },
+  {
+    "key": "965",
+    "description": "Psychology"
+  },
+  {
+    "key": "496",
+    "description": "Public Health"
+  },
+  {
+    "key": "877",
+    "description": "Queer Studies"
+  },
+  {
+    "key": "326",
+    "description": "Radiation Health Physics"
+  },
+  {
+    "key": "794",
+    "description": "Rangeland Science"
+  },
+  {
+    "key": "978",
+    "description": "Religious Studies"
+  },
+  {
+    "key": "103",
+    "description": "Resource Economics"
+  },
+  {
+    "key": "271",
+    "description": "Social Justice"
+  },
+  {
+    "key": "980",
+    "description": "Sociology"
+  },
+  {
+    "key": "160",
+    "description": "Soil Science"
+  },
+  {
+    "key": "940",
+    "description": "Spanish"
+  },
+  {
+    "key": "010",
+    "description": "Sports Business"
+  },
+  {
+    "key": "615",
+    "description": "Statistics"
+  },
+  {
+    "key": "045",
+    "description": "Supply Chain and Logistics Management"
+  },
+  {
+    "key": "871",
+    "description": "Sustainability"
+  },
+  {
+    "key": "032",
+    "description": "Theatre Arts"
+  },
+  {
+    "key": "958",
+    "description": "Tourism, Recreation, and Adventure Leadership"
+  },
+  {
+    "key": "618",
+    "description": "Toxicology"
+  },
+  {
+    "key": "147",
+    "description": "Turf and Landscape Management"
+  },
+  {
+    "key": "073",
+    "description": "User Experience Research"
+  },
+  {
+    "key": "878",
+    "description": "Visual Arts"
+  },
+  {
+    "key": "908",
+    "description": "Women, Gender, and Sexuality Studies"
+  },
+  {
+    "key": "009",
+    "description": "Wood Innovation for Sustainability"
+  },
+  {
+    "key": "023",
+    "description": "Wood Products Sales"
+  },
+  {
+    "key": "891",
+    "description": "Writing"
+  }
+]

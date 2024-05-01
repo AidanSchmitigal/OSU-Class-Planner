@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { type Course, getCourseData, majors, baccores, Status, Requirement, Term } from '$lib';
+  import { type Course, Status, Requirement, Term } from '$lib';
+  import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration } from '$lib/selectedPrograms';
   import CourseComponent from './CourseComponent.svelte';
-  import { addCourse, hasCourse, removeCourse, selectedCourses, selectedMajor, setMajor, updateCourse } from '$lib/selectedCourses';
+  import { ruleToString } from '$lib/requirements';
+  // import { addCourse, hasCourse, removeCourse, selectedCourses, selectedMajor, setMajor, updateCourse } from '$lib/selectedCourses';
 
   let searchCourse: Course | undefined = undefined;
   let hoveringOver: null | { year: number; term: Term } = null;
@@ -20,18 +22,18 @@
     if (course.discipline === searchCourse?.discipline && course.code === searchCourse?.code) searchCourse = undefined;
 
     if (!hoveringOver) {
-      removeCourse(course);
+      // removeCourse(course);
       return;
     }
 
     if (course.year === -1) {
-      course = addCourse(course);
+      // course = addCourse(course);
       if (!course) return;
     }
 
     course.year = hoveringOver.year;
     course.term = hoveringOver.term;
-    updateCourse(course);
+    // updateCourse(course);
 
     hoveringOver = null;
   }
@@ -57,20 +59,9 @@
     if (e.key !== 'Enter') return;
     e.preventDefault();
     const [discipline, code] = e.currentTarget.value.toUpperCase().split(' ');
-    searchCourse = getCourseData(discipline, code);
-    e.currentTarget.value = '';
+    // searchCourse = getCourseData(discipline, code);
+    // e.currentTarget.value = '';
   }} />
-
-<select
-  class="w-full border-2 border-blue-500 rounded-sm"
-  value={$selectedMajor?.majorCode}
-  on:change={(e) => {
-    setMajor(e.currentTarget.value);
-  }}>
-  {#each majors as major}
-    <option value={major.majorCode}>{major.title}</option>
-  {/each}
-</select>
 
 {#if searchCourse != undefined}
   <CourseComponent
@@ -79,6 +70,60 @@
       dragStart(event, searchCourse);
     }} />
 {/if}
+
+<div class="flex flex-col gap-2">
+  {#each $selectedPrograms as program}
+    <div class="flex gap-4">
+      <select
+        class="w-full border-2 border-blue-500 rounded-sm"
+        bind:value={program.degree}
+        on:change={(e) => {
+          program.college = '';
+          program.major = '';
+          program.concentration = '';
+        }}>
+        {#each getDegrees() as degree}
+          <option value={degree.degree}>{getDegree(degree.degree)?.description}</option>
+        {/each}
+      </select>
+      <select
+        class="w-full border-2 border-blue-500 rounded-sm"
+        bind:value={program.college}
+        on:change={(e) => {
+          program.major = '';
+          program.concentration = '';
+        }}>
+        {#each getColleges(program.degree) as college}
+          <option value={college.college}>{getCollege(college.college)?.description}</option>
+        {/each}
+      </select>
+      <select
+        class="w-full border-2 border-blue-500 rounded-sm"
+        bind:value={program.major}
+        on:change={(e) => {
+          program.concentration = '';
+        }}>
+        {#each getMajors(program.degree, program.college) as major}
+          <option value={major.major}>{getMajor(major.major)?.description}</option>
+        {/each}
+      </select>
+      <select class="w-full border-2 border-blue-500 rounded-sm" bind:value={program.concentration}>
+        {#each getConcentrations(program.degree, program.college, program.major) as concentration}
+          <option value={concentration}>{getConcentration(concentration)?.description}</option>
+        {/each}
+      </select>
+      <button class="w-full border-2 border-blue-500 rounded-sm" on:click={() => selectedPrograms.update((programs) => programs.filter((p) => p !== program))}>Remove</button>
+    </div>
+  {/each}
+</div>
+
+<button
+  class="w-full border-2 border-blue-500 rounded-sm"
+  on:click={() => {
+    selectedPrograms.update((programs) => [...programs, { degree: '', college: '', major: '', concentration: '' }]);
+  }}>
+  Add
+</button>
 
 <div class="flex overflow-x-scroll gap-3">
   {#each [0, 1, 2, 3] as year}
@@ -98,13 +143,13 @@
               on:dragleave={() => (hoveringOver = null)}
               on:drop={(event) => drop(event)}
               on:dragover={(event) => (event.preventDefault(), (hoveringOver = { year, term }))}>
-              {#each $selectedCourses.filter((course) => course.year === year && course.term === term) as course}
+              <!-- {#each $selectedCourses.filter((course) => course.year === year && course.term === term) as course}
                 <CourseComponent
                   on:dragstart={(event) => {
                     dragStart(event, course);
                   }}
                   {course} />
-              {/each}
+              {/each} -->
             </div>
           </div>
         {/each}
@@ -113,7 +158,46 @@
   {/each}
 </div>
 
-{#key $selectedCourses}
+{#each $selectedPrograms as program}
+  {#if program.degree}
+    {@const degree = getDegree(program.degree)}
+    <p class="text-lg font-bold capitalize">
+      {degree?.description}
+    </p>
+    <p class="whitespace-pre">
+      {degree?.requirements.map((r) => ruleToString(r)).join('\n')}
+    </p>
+  {/if}
+  {#if program.college}
+    {@const college = getCollege(program.college)}
+    <p class="text-lg font-bold capitalize">
+      {college?.description}
+    </p>
+    <p />
+  {/if}
+  {#if program.major}
+    {@const major = getMajor(program.major)}
+    <p class="text-lg font-bold capitalize">
+      {major?.description}
+    </p>
+
+    <p class="whitespace-pre">
+      {major?.requirements.map((r) => ruleToString(r)).join('\n')}
+    </p>
+  {/if}
+  {#if program.concentration}
+    {@const concentration = getConcentration(program.concentration)}
+    <p class="text-lg font-bold capitalize">
+      {concentration?.description}
+    </p>
+
+    <p class="whitespace-pre">
+      {concentration?.requirements.map((r) => ruleToString(r)).join('\n')}
+    </p>
+  {/if}
+{/each}
+
+<!-- {#key $selectedCourses}
   <div class="flex flex-wrap gap-1">
     {#if selectedMajor}
       {#each $selectedMajor?.courses ?? [] as courseList}
@@ -134,9 +218,9 @@
       {/each}
     {/if}
   </div>
-{/key}
+{/key} -->
 
-<div>
+<!-- <div>
   {#each baccores as baccore}
     <p class="text-lg font-bold capitalize">
       {baccore.title}
@@ -154,4 +238,4 @@
       {/each}
     </div>
   {/each}
-</div>
+</div> -->

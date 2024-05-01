@@ -1,0 +1,42 @@
+[
+  {
+    "key": "01",
+    "description": "College of Agricultural Sci"
+  },
+  {
+    "key": "02",
+    "description": "College of Business"
+  },
+  {
+    "key": "03",
+    "description": "College of Education"
+  },
+  {
+    "key": "16",
+    "description": "College of Engineering"
+  },
+  {
+    "key": "05",
+    "description": "College of Forestry"
+  },
+  {
+    "key": "10",
+    "description": "College of Liberal Arts"
+  },
+  {
+    "key": "08",
+    "description": "College of Science"
+  },
+  {
+    "key": "24",
+    "description": "Earth, Ocean, and Atmosphr Sci"
+  },
+  {
+    "key": "25",
+    "description": "Pre-Forestry Program"
+  },
+  {
+    "key": "23",
+    "description": "Public Hlth and Human Sciences"
+  }
+]
