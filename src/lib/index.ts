@@ -136,10 +136,14 @@ export const urlParams = new URLSearchParams(window.location.search);
 export let loadedFromURL = false;
 if (urlParams.has('courses') && urlParams.has('programs') && urlParams.has('minors')) {
   loadedFromURL = true;
+  loadPart('Loading page data from URL');
 }
 
 export function loadLocalStore<T>(key: string): T | undefined {
   if (loadedFromURL) return undefined;
+
+  loadPart(`Loaded ${key} from local storage`);
+
   const localStore = localStorage.getItem(key);
   if (localStore) {
     return JSON.parse(localStore);

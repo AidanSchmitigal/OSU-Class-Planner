@@ -8,9 +8,7 @@ declare global {
     // interface Platform {}
   }
 
-  export function loadPart(part: string): void {
-    part;
-  }
+  export function loadPart(part: string);
 }
 
 export {};
