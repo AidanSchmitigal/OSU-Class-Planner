@@ -1,42 +1,52 @@
 [
   {
     "key": "01",
-    "description": "College of Agricultural Sci"
+    "description": "College of Agricultural Sci",
+    "requirements": []
   },
   {
     "key": "02",
-    "description": "College of Business"
+    "description": "College of Business",
+    "requirements": []
   },
   {
     "key": "03",
-    "description": "College of Education"
+    "description": "College of Education",
+    "requirements": []
   },
   {
     "key": "16",
-    "description": "College of Engineering"
+    "description": "College of Engineering",
+    "requirements": []
   },
   {
     "key": "05",
-    "description": "College of Forestry"
+    "description": "College of Forestry",
+    "requirements": []
   },
   {
     "key": "10",
-    "description": "College of Liberal Arts"
+    "description": "College of Liberal Arts",
+    "requirements": []
   },
   {
     "key": "08",
-    "description": "College of Science"
+    "description": "College of Science",
+    "requirements": []
   },
   {
     "key": "24",
-    "description": "Earth, Ocean, and Atmosphr Sci"
+    "description": "Earth, Ocean, and Atmosphr Sci",
+    "requirements": []
   },
   {
     "key": "25",
-    "description": "Pre-Forestry Program"
+    "description": "Pre-Forestry Program",
+    "requirements": []
   },
   {
     "key": "23",
-    "description": "Public Hlth and Human Sciences"
+    "description": "Public Hlth and Human Sciences",
+    "requirements": []
   }
 ]

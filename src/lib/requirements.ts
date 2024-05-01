@@ -59,7 +59,8 @@ type BlockRequirement = Rule & {
 type CourseRequirement = Rule & {
   ruleType: 'Course';
   requirement: {
-    classesBegin: string;
+    classesBegin?: string;
+    creditsBegin?: string;
     classCreditOperator: 'OR' | 'AND';
     connector: string;
     courseArray: {
@@ -90,7 +91,10 @@ type IncompleteRequirement = Rule & {
   ruleType: 'Incomplete';
 };
 
-export function ruleToString(rule: IfRequirement | BlockTypeRequirement | BlockRequirement | CourseRequirement | GroupRequirement | SubsetRequirement | CompleteRequirement | IncompleteRequirement, indent = 0): string {
+type AnyRule = IfRequirement | BlockTypeRequirement | BlockRequirement | CourseRequirement | GroupRequirement | SubsetRequirement | CompleteRequirement | IncompleteRequirement;
+
+export function ruleToString(_rule: Rule, indent = 0): string {
+  const rule: AnyRule = _rule as AnyRule;
   switch (rule.ruleType) {
     case 'IfStmt':
       return ifRequirementToString(rule, indent);
@@ -117,8 +121,7 @@ function ifRequirementToString(rule: IfRequirement, indent: number): string {
   const indentSpaces = ' '.repeat(indent);
   const innerIndentSpaces = ' '.repeat(indent + 1);
 
-  // @ts-expect-error
-  return `${indentSpaces}if (${leftCondition}) {\n${innerIndentSpaces}${rule.requirement.ifPart.ruleArray.map((r) => ruleToString(r, indent + 1)).join('\n')}\n${indentSpaces}} else {\n${innerIndentSpaces}${rule.requirement.elsePart?.ruleArray.map((r) => ruleToString(r, indent + 1)).join('\n')}\n${indentSpaces}}`;
+  return `${indentSpaces}if (${leftCondition}) {\n${innerIndentSpaces}${rule.requirement.ifPart.ruleArray.map((r) => ruleToString(r, indent + 1)).join('\n')}\n${indentSpaces}} ${rule.requirement.elsePart ? `else {\n${innerIndentSpaces}${rule.requirement.elsePart.ruleArray.map((r) => ruleToString(r, indent + 1)).join('\n')}\n${indentSpaces}}` : ''}`;
 }
 
 function conditionToString(
@@ -131,7 +134,7 @@ function conditionToString(
   if (condition.relationalOperator) {
     return `${condition.relationalOperator.left} ${condition.relationalOperator.operator} ${condition.relationalOperator.right}`;
   }
-  return `${conditionToString(condition.leftCondition)} ${condition.connector} ${condition.rightCondition ? conditionToString(condition.rightCondition) : '<blank>'}`;
+  return `${conditionToString(condition.leftCondition)} ${condition.rightCondition ? `${condition.connector} ${conditionToString(condition.rightCondition)}` : ''}`;
 }
 
 function blockTypeRequirementToString(rule: BlockTypeRequirement): string {
@@ -143,17 +146,105 @@ function blockRequirementToString(rule: BlockRequirement): string {
 }
 
 function courseRequirementToString(rule: CourseRequirement): string {
-  return `${rule.requirement.classesBegin} classes in ${rule.requirement.courseArray.map((c) => `${c.discipline} ${c.number}`).join(` ${rule.requirement.classCreditOperator} `)}`;
+  return `${rule.requirement.classesBegin ? `${rule.requirement.classesBegin} classes` : `${rule.requirement.creditsBegin} credits`} in ${rule.requirement.courseArray.map((c) => `${c.discipline} ${c.number}`).join(` ${rule.requirement.classCreditOperator} `)}`;
 }
 
 function groupRequirementToString(rule: GroupRequirement): string {
   let text = `${rule.requirement.numberOfGroups} groups of ${rule.requirement.numberOfRules} rules\n`;
-  // @ts-expect-error
   text += rule.ruleArray.map((r) => ruleToString(r)).join('\n');
   return text;
 }
 
 function subsetRequirementToString(rule: SubsetRequirement): string {
-  // @ts-expect-error
   return rule.ruleArray.map((r) => ruleToString(r)).join('\n');
+}
+
+export function getCourseRquirements(_rule: Rule): {
+  coursesNeeded?: number;
+  creditsNeeded?: number;
+  courses: {
+    discipline: string;
+    code: string;
+  }[];
+}[] {
+  const rule: AnyRule = _rule as AnyRule;
+  switch (rule.ruleType) {
+    case 'IfStmt':
+      return getCourseRequirementsForIf(rule);
+    case 'Blocktype':
+      return [];
+    case 'Block':
+      return [];
+    case 'Course':
+      return [getCourseRequirementsForRule(rule)];
+    case 'Group':
+      return [];
+    case 'Subset':
+      return [];
+    case 'Complete':
+      return [];
+    case 'Incomplete':
+      return [];
+  }
+  return [];
+}
+
+function getCourseRequirementsForIf(rule: IfRequirement): {
+  coursesNeeded?: number;
+  creditsNeeded?: number;
+  courses: {
+    discipline: string;
+    code: string;
+  }[];
+}[] {
+  const leftCondition = rule.requirement.leftCondition;
+  const leftCourses = getCourseRequirementsForCondition(leftCondition);
+  const rightCourses = rule.requirement.elsePart ? getCourseRequirementsForCondition(leftCondition) : [];
+  return [...leftCourses, ...rightCourses];
+}
+
+function getCourseRequirementsForCondition(
+  condition:
+    | Condition
+    | {
+        relationalOperator: RelationalOperator;
+      }
+): {
+  coursesNeeded?: number;
+  creditsNeeded?: number;
+  courses: {
+    discipline: string;
+    code: string;
+  }[];
+}[] {
+  if (condition.relationalOperator) {
+    return [];
+  }
+  const leftCourses = getCourseRequirementsForCondition(condition.leftCondition);
+  const rightCourses = condition.rightCondition ? getCourseRequirementsForCondition(condition.rightCondition) : [];
+  return [...leftCourses, ...rightCourses];
+}
+
+function getCourseRequirementsForRule(rule: CourseRequirement): {
+  coursesNeeded?: number;
+  creditsNeeded?: number;
+  courses: {
+    discipline: string;
+    code: string;
+  }[];
+} {
+  const coursesNeeded = rule.requirement.classesBegin ? parseInt(rule.requirement.classesBegin) : undefined;
+  const creditsNeeded = rule.requirement.creditsBegin ? parseInt(rule.requirement.creditsBegin) : undefined;
+  const courses: {
+    discipline: string;
+    code: string;
+  }[] = rule.requirement.courseArray.map((c) => ({
+    discipline: c.discipline,
+    code: c.number
+  }));
+  return {
+    coursesNeeded,
+    creditsNeeded,
+    courses
+  };
 }
