@@ -1,8 +1,8 @@
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { type Course, Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasCourseSelector, hasSomeCourseSelector } from '$lib/selectedCourses';
-  import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor } from '$lib/selectedPrograms';
-  import { ruleToString, getCourseRquirements, checkIfCondition } from '$lib/requirements';
+  import { Statuses, type Course, Term, Requirements } from '$lib';
+  import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor, exportPrograms, exportMinors } from '$lib/selectedPrograms';
+  import { getCourse, selectedCourses, addCourse, removeCourse, moveCourse, hasCourse, hasSomeCourseSelector, exportCourses } from '$lib/selectedCourses';
   import RuleComponent from './RuleComponent.svelte';
   import CourseComponent from './CourseComponent.svelte';
 
@@ -55,9 +55,9 @@
     class="p-1 px-2 rounded-md border-2 border-blue-500"
     on:click={(e) => {
       const url = new URL(window.location.href);
-      url.searchParams.set('courses', JSON.stringify($selectedCourses));
-      url.searchParams.set('programs', JSON.stringify($selectedPrograms));
-      url.searchParams.set('minors', JSON.stringify($selectedMinors));
+      url.searchParams.set('courses', exportCourses());
+      url.searchParams.set('programs', exportPrograms());
+      url.searchParams.set('minors', exportMinors());
       navigator.clipboard.writeText(url.toString());
 
       e.currentTarget.textContent = 'Copied!';

@@ -1,79 +1,39 @@
-export enum Term {
-  FALL = 'FALL',
-  WINTER = 'WINTER',
-  SPRING = 'SPRING',
-  SUMMER = 'SUMMER'
-}
-export const Terms = [Term.FALL, Term.WINTER, Term.SPRING, Term.SUMMER];
-export function termAbbr(term: Term) {
-  switch (term) {
-    case Term.FALL:
-      return 'F';
-    case Term.WINTER:
-      return 'W';
-    case Term.SPRING:
-      return 'S';
-    case Term.SUMMER:
-      return 'U';
-  }
-}
-
-export const Requirement = {
-  NONE: { value: 'NONE', style: 'border-gray-100' },
-  REQUIRED: { value: 'REQUIRED', style: 'border-red-500' },
-  BACCORE: { value: 'BACCORE', style: 'border-blue-500' },
-  MAJOR: { value: 'MAJOR', style: 'border-amber-500' },
-  CONCENTRATION: { value: 'CONCENTRATION', style: 'border-pink-500' },
-  ELECTIVE: { value: 'ELECTIVE', style: 'border-green-500' }
-};
-export const Requirements = [Requirement.NONE, Requirement.REQUIRED, Requirement.BACCORE, Requirement.MAJOR, Requirement.CONCENTRATION, Requirement.ELECTIVE];
-
-export type Requirement = typeof Requirement[keyof typeof Requirement];
-export function nextRequirement(requirement: Requirement): Requirement {
-  return Requirements[(Requirements.indexOf(requirement) + 1) % Requirements.length];
-}
-export function previousRequirement(requirement: Requirement): Requirement {
-  return Requirements[(Requirements.indexOf(requirement) - 1 + Requirements.length) % Requirements.length];
-}
-
-export const Status = {
-  NOT_STARTED: { value: 'NOT_STARTED', style: 'transparent' },
-  NEXT_TERM: { value: 'NEXT_TERM', style: 'bg-amber-500' },
-  IN_PROGRESS: { value: 'IN_PROGRESS', style: 'bg-blue-500' },
-  COMPLETED: { value: 'COMPLETED', style: 'bg-green-500' }
-};
-export const Statuses = [Status.NOT_STARTED, Status.NEXT_TERM, Status.IN_PROGRESS, Status.COMPLETED];
-export type Status = typeof Status[keyof typeof Status];
-export function nextStatus(status: Status): Status {
-  return Statuses[(Statuses.indexOf(status) + 1) % Statuses.length];
-}
-export function previousStatus(status: Status): Status {
-  return Statuses[(Statuses.indexOf(status) - 1 + Statuses.length) % Statuses.length];
-}
-
 const _courses = await (await fetch('/data/courses.json')).json();
 const courses = _courses as Course[];
 
-import { loadLocalStore, saveLocalStore } from '$lib';
+import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Term, Terms, Status } from '$lib';
 import { get, writable } from 'svelte/store';
-import { getCollege, getConcentration, getDegree, getMajor, selectedPrograms } from './selectedPrograms';
-import { getCourseRquirements } from './requirements';
+import { getCourseCategory } from './selectedPrograms';
+
+function importCourses(courses: string) {
+  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string }[] }[] }[];
+  if (!importedCourses) return;
+  return importedCourses.map((c) => ({
+    year: c.year,
+    terms: c.terms.map((t) => ({
+      term: t.term,
+      courses: t.courses.map((c) => getCourse(c.discipline, c.code)!)
+    }))
+  }));
+}
 
 export const selectedCourses = writable<{ year: number; terms: { term: Term; courses: Course[] }[] }[]>(
-  loadLocalStore('selectedCourses') ??
-    Array(new Date().getFullYear() - 2023 + 4)
-      .fill(0)
-      .map((_, i) => ({
-        year: new Date().getFullYear() + i,
-        terms: Terms.map((term) => ({
-          term,
-          courses: []
-        }))
-      }))
+  loadedFromURL
+    ? importCourses(urlParams.get('courses')!)
+    : loadLocalStore('selectedCourses') ??
+        Array(new Date().getFullYear() - 2023 + 4)
+          .fill(0)
+          .map((_, i) => ({
+            year: new Date().getFullYear() + i,
+            terms: Terms.map((term) => ({
+              term,
+              courses: []
+            }))
+          }))
 );
 let quickSave = false;
 selectedCourses.subscribe((value) => {
-  if (quickSave) return (quickSave = false);
+  if (quickSave || loadedFromURL) return (quickSave = false);
   const lastTermHasCourses = !!value.at(-1)?.terms.at(-1)?.courses.length;
   if (lastTermHasCourses) {
     value.push({
@@ -89,54 +49,33 @@ selectedCourses.subscribe((value) => {
   saveLocalStore('selectedCourses', value);
 });
 
-let allDegreeRequirements: { discipline: string; code: string }[] = [];
-let allCollegeRequirements: { discipline: string; code: string }[] = [];
-let allMajorRequirements: { discipline: string; code: string }[] = [];
-let allConcentrationRequirements: { discipline: string; code: string }[] = [];
-let allBaccalaureateRequirements: { discipline: string; code: string }[] = [];
-
-function updateCourseRequirements(
-  programs: {
-    degree: string;
-    college: string;
-    major: string;
-    concentration: string;
-  }[]
-) {
-  allDegreeRequirements = programs.flatMap((p) => (getDegree(p.degree)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allCollegeRequirements = programs.flatMap((p) => (getCollege(p.college)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allMajorRequirements = programs.flatMap((p) => (getMajor(p.major)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  allConcentrationRequirements = programs.flatMap((p) => (getConcentration(p.concentration)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
-  // allBaccalaureateRequirements = programs.flatMap((p) => getDegree(p.degree)?.baccalaureateRequirements ?? []);
-  allBaccalaureateRequirements = [];
+export function exportCourses() {
+  const exportingCourses = get(selectedCourses).map((c) => ({
+    year: c.year,
+    terms: c.terms.map((t) => ({
+      term: t.term,
+      courses: t.courses.map((c) => ({
+        discipline: c.discipline,
+        code: c.code
+      }))
+    }))
+  }));
+  return JSON.stringify(exportingCourses);
 }
-selectedPrograms.subscribe(updateCourseRequirements);
 
 export function getCourse(discipline: string, code: string, attribute?: string): Course | undefined {
   const disciplineRegex = `^${discipline.split('@').join('.*')}$`;
   const codeRegex = `^${code.split('@').join('.*')}$`;
   const course = courses.find((c) => c.discipline.match(disciplineRegex) && c.code.match(codeRegex) && (!attribute || c.attributes.some((a) => a.code === attribute)));
-  console.log(discipline, disciplineRegex, code, codeRegex, attribute, course);
   if (!course) return undefined;
 
   // const course = courses.find((c) => c.discipline === discipline && c.code === code);
   // if (!course) return undefined;
 
-  const requirement = allDegreeRequirements.some((c) => c.discipline === discipline && c.code === code)
-    ? Requirement.REQUIRED //
-    : allCollegeRequirements.some((c) => c.discipline === discipline && c.code === code)
-    ? Requirement.REQUIRED
-    : allMajorRequirements.some((c) => c.discipline === discipline && c.code === code)
-    ? Requirement.MAJOR
-    : allConcentrationRequirements.some((c) => c.discipline === discipline && c.code === code)
-    ? Requirement.CONCENTRATION
-    : allBaccalaureateRequirements.some((c) => c.discipline === discipline && c.code === code)
-    ? Requirement.BACCORE
-    : Requirement.ELECTIVE;
+  const requirement = getCourseCategory(course);
 
   return {
     ...course,
-    // Add extra data
     status: Status.NOT_STARTED,
     requirement
   };
@@ -195,7 +134,7 @@ export function hasSomeCourseSelector(
 ) {
   const matches = courses.map((c) => getCourse(c.discipline, c.code)).filter((c) => c && hasCourseSelector(c.discipline, c.code));
   if (requirement.credits) {
-    const credits = matches.reduce((a, c) => a + (+c!.creditHourHigh ?? +c!.creditHourLow), 0);
+    const credits = matches.reduce((a, c) => a + +(c!.creditHourLow || c!.creditHourHigh), 0);
     return credits >= requirement.credits;
   }
   if (requirement.courses) return matches.length >= requirement.courses;
@@ -224,109 +163,3 @@ export function getTermsOffered(course: Course): { year: number; terms: Term[] }
   });
   return years;
 }
-
-// export function removeCourse(course: Course) {
-//   selectedCourses.update((courses) => courses.filter((c) => c !== course));
-//   save();
-// }
-
-// export function updateCourse(course: Course) {
-//   selectedCourses.update((courses) => {
-//     const index = courses.findIndex((c) => c.discipline === course.discipline && c.code === course.code);
-//     courses[index] = course;
-//     return courses;
-//   });
-//   save();
-// }
-
-// function getMajor(majorCode: string): Major | undefined {
-//   return majors.find((m) => m.majorCode === majorCode);
-// }
-
-// export function setMajor(majorCode: string) {
-//   const major = getMajor(majorCode);
-//   if (!major) return;
-//   selectedMajor.update(() => major);
-//   saveLocalStore('selectedMajor', majorCode);
-// }
-
-export type Course = {
-  discipline: string;
-  code: string;
-  title: string;
-  description?: string;
-  descriptionAdditional?: string;
-
-  repeatLimit: string;
-  creditHourLow: string;
-  creditHourHigh: string;
-  creditHourIndicator: '' | 'TO' | 'OR';
-
-  attributes: {
-    code: string;
-    description: string;
-  }[];
-
-  prerequisites: {
-    discipline: string;
-    code: string;
-    levelCode: string;
-    minimumGrade: string;
-    concurrencyIndicator: string;
-    connector: string;
-    leftParenthesis: string;
-    rightParenthesis: string;
-  }[];
-
-  sections: {
-    termCode: string;
-    termLiteral: string;
-    courseReferenceNumber: string;
-    sequenceNumber: string;
-    scheduleCode: string;
-    campusCode: string;
-    courseTitle: string;
-    creditHours: string;
-    gradeModeCode: string;
-    gradableIndicator: string;
-    maximumEnrollment: string;
-    enrollment: string;
-    seatsAvailable: string;
-    waitCapacity: string;
-    waitCount: string;
-    waitAvailable: string;
-    meetings: {
-      termCode: string;
-      courseReferenceNumber: string;
-      daysCode: string;
-      dayNumber: string;
-      beginTime: string;
-      endTime: string;
-      buildingCode: string;
-      roomCode: string;
-      activityDate: string;
-      startDate: string;
-      endDate: string;
-      category: string;
-      sunday: string;
-      monday: string;
-      tuesday: string;
-      wednesday: string;
-      thursday: string;
-      friday: string;
-      saturday: string;
-      scheduleCode: string;
-      override: string;
-      creditHourSession: string;
-      meetingNumber: string;
-      hoursPerWeek: string;
-      funcCode: string;
-      comtCode: string;
-      schsCode: string;
-      mtypCode: string;
-    }[];
-  }[];
-
-  requirement: Requirement;
-  status: Status;
-};

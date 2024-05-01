@@ -1,4 +1,5 @@
 <script>
+  import { loadedFromURL } from '$lib';
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
   import { getPostrequisites, getTermsOffered } from '$lib/selectedCourses';
 
@@ -6,6 +7,10 @@
 
   document.getElementById('prepage-load-loading')?.remove();
 </script>
+
+{#if loadedFromURL}
+  <div class="stick top-0 w-full flex justify-center items-center bg-amber-200 font-mono py-1 text-sm">Content here was loaded from the URL and will not save!</div>
+{/if}
 
 {#if $hoverCourse}
   <!-- SVG arrow connecting to prerequisites -->

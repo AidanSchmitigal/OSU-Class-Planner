@@ -1,3 +1,40 @@
+let allDegreeRequirements: { discipline: string; code: string }[] = [];
+let allCollegeRequirements: { discipline: string; code: string }[] = [];
+let allMajorRequirements: { discipline: string; code: string }[] = [];
+let allConcentrationRequirements: { discipline: string; code: string }[] = [];
+let allBaccalaureateRequirements: { discipline: string; code: string }[] = [];
+
+function updateCourseRequirements(
+  programs: {
+    degree: string;
+    college: string;
+    major: string;
+    concentration: string;
+  }[]
+) {
+  allDegreeRequirements = programs.flatMap((p) => (getDegree(p.degree)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
+  allCollegeRequirements = programs.flatMap((p) => (getCollege(p.college)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
+  allMajorRequirements = programs.flatMap((p) => (getMajor(p.major)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
+  allConcentrationRequirements = programs.flatMap((p) => (getConcentration(p.concentration)?.requirements ?? []).flatMap(getCourseRquirements).flatMap((r) => r.courses));
+  // allBaccalaureateRequirements = programs.flatMap((p) => getDegree(p.degree)?.baccalaureateRequirements ?? []);
+  allBaccalaureateRequirements = [];
+}
+
+export function getCourseCategory(course: Course) {
+  const equals = (c: { discipline: string; code: string }) => c.discipline === course.discipline && c.code === course.code;
+  return allDegreeRequirements.some(equals)
+    ? Requirement.REQUIRED //
+    : allCollegeRequirements.some(equals)
+      ? Requirement.REQUIRED
+      : allMajorRequirements.some(equals)
+        ? Requirement.MAJOR
+        : allConcentrationRequirements.some(equals)
+          ? Requirement.CONCENTRATION
+          : allBaccalaureateRequirements.some(equals)
+            ? Requirement.BACCORE
+            : Requirement.ELECTIVE;
+}
+
 // @ts-ignore
 const _degreeTree = await (await fetch('/data/degreeTree.json')).json();
 const degreeTree = _degreeTree as {
@@ -73,9 +110,18 @@ type ProgramList = {
   }[];
 }[];
 
-import { writable } from 'svelte/store';
-import { getCourseRquirements, ruleToString, type Rule } from './requirements';
-import { loadLocalStore, saveLocalStore } from '$lib';
+import { get, writable } from 'svelte/store';
+import { getCourseRquirements, type Rule } from './requirements';
+import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, Requirement } from '$lib';
+
+function importPrograms(programs: string) {
+  if (!programs) return null;
+  return JSON.parse(programs);
+}
+function importMinors(minors: string) {
+  if (!minors) return null;
+  return JSON.parse(minors);
+}
 
 export const selectedPrograms = writable<
   {
@@ -84,14 +130,23 @@ export const selectedPrograms = writable<
     major: string;
     concentration: string;
   }[]
->(loadLocalStore('selectedPrograms') ?? []);
+>(loadedFromURL ? importPrograms(urlParams.get('programs')!) : loadLocalStore('selectedPrograms') ?? []);
 selectedPrograms.subscribe((value) => {
-  saveLocalStore('selectedPrograms', value);
+  if (!loadedFromURL) saveLocalStore('selectedPrograms', value);
+  updateCourseRequirements(value);
 });
-export const selectedMinors = writable<string[]>(loadLocalStore('selectedMinors') ?? []);
+export const selectedMinors = writable<string[]>(loadedFromURL ? importMinors(urlParams.get('minors')!) : loadLocalStore('selectedMinors') ?? []);
 selectedMinors.subscribe((value) => {
-  saveLocalStore('selectedMinors', value);
+  if (!loadedFromURL) saveLocalStore('selectedMinors', value);
 });
+
+export function exportPrograms() {
+  return JSON.stringify(get(selectedPrograms));
+}
+
+export function exportMinors() {
+  return JSON.stringify(get(selectedMinors));
+}
 
 export function getDegrees() {
   return degreeTree;
