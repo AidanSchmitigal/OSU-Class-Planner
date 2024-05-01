@@ -1,4 +1,4 @@
-import _courses from '$lib/data/courses.json' assert { type: 'json' };
+const _courses = await (await fetch('/data/courses.json')).json();
 const courses = _courses as Course[];
 
 import { loadLocalStore, saveLocalStore } from '$lib';
@@ -117,7 +117,6 @@ export function removeCourse(course: Course) {
     for (const year of years) {
       for (const term of year.terms) {
         term.courses = term.courses.filter((c) => c !== course);
-        return years;
       }
     }
     return years;

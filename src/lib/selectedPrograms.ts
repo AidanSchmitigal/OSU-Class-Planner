@@ -1,5 +1,5 @@
 // @ts-ignore
-import _degreeTree from '$lib/data/degreeTree.json' assert { type: 'json' };
+const _degreeTree = await (await fetch('/data/degreeTree.json')).json();
 const degreeTree = _degreeTree as {
   degree: string;
   colleges: {
@@ -10,43 +10,40 @@ const degreeTree = _degreeTree as {
     }[];
   }[];
 }[];
+function addCourseRequirementsToOBJ(_: unknown) {
+  return (_ as unknown as ProgramList).map((e) => ({
+    ...e,
+    courseRequirements: e.requirements.flatMap(getCourseRquirements)
+  })) as ProgramList;
+}
+
 // @ts-ignore
-import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
-const degrees = (_degrees as unknown as ProgramList).map((e) => ({
-  ...e,
-  courseRequirements: e.requirements.flatMap(getCourseRquirements)
-})) as ProgramList;
+const _blocks = await (await fetch('/data/blocks.json')).json();
+const blocks = addCourseRequirementsToOBJ(_blocks);
 // @ts-ignore
-import _colleges from '$lib/data/colleges.json' assert { type: 'json' };
+// import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
+const _degrees = await (await fetch('/data/degrees.json')).json();
+const degrees = addCourseRequirementsToOBJ(_degrees);
 // @ts-ignore
-const colleges = (_colleges as unknown as ProgramList).map((e) => ({
-  ...e,
-  courseRequirements: e.requirements.flatMap(getCourseRquirements)
-})) as ProgramList;
+const _colleges = await (await fetch('/data/colleges.json')).json();
 // @ts-ignore
-import _majors from '$lib/data/majors.json' assert { type: 'json' };
-const majors = (_majors as unknown as ProgramList).map((e) => ({
-  ...e,
-  courseRequirements: e.requirements.flatMap(getCourseRquirements)
-})) as ProgramList;
+const colleges = addCourseRequirementsToOBJ(_colleges);
 // @ts-ignore
-import _concentrations from '$lib/data/concentrations.json' assert { type: 'json' };
-const concentrations = (_concentrations as unknown as ProgramList).map((e) => ({
-  ...e,
-  courseRequirements: e.requirements.flatMap(getCourseRquirements)
-})) as ProgramList;
+const _majors = await (await fetch('/data/majors.json')).json();
+const majors = addCourseRequirementsToOBJ(_majors);
 // @ts-ignore
-import _minors from '$lib/data/minors.json' assert { type: 'json' };
-const minors = (_minors as unknown as ProgramList).map((e) => ({
-  ...e,
-  courseRequirements: e.requirements.flatMap(getCourseRquirements)
-})) as ProgramList;
+const _concentrations = await (await fetch('/data/concentrations.json')).json();
+const concentrations = addCourseRequirementsToOBJ(_concentrations);
+// @ts-ignore
+const _minors = await (await fetch('/data/minors.json')).json();
+const minors = addCourseRequirementsToOBJ(_minors);
 
 type ProgramList = {
   key: string;
   description: string;
   requirements: Rule[];
   courseRequirements: {
+    label: string;
     coursesNeeded?: number;
     creditsNeeded?: number;
     courses: {
@@ -114,4 +111,8 @@ export function getConcentration(concentration: string) {
 
 export function getMinor(minor: string) {
   return minors.find((m) => m.key === minor);
+}
+
+export function getBlock(block: string) {
+  return blocks.find((b) => b.key === block);
 }

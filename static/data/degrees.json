@@ -980,7 +980,6 @@
                 "requirement": {
                   "classesBegin": "1",
                   "classCreditOperator": "OR",
-                  "connector": ",",
                   "courseArray": [
                     {
                       "discipline": "ARAB",
@@ -2387,7 +2386,8 @@
           }
         }
       }
-    ]
+    ],
+    "coreRequirements": ["LABACCORE"]
   },
   {
     "key": "BM",
@@ -5009,7 +5009,6 @@
                 "requirement": {
                   "classesBegin": "1",
                   "classCreditOperator": "OR",
-                  "connector": ",",
                   "courseArray": [
                     {
                       "discipline": "ARAB",

@@ -1,3 +1,5 @@
+import { getBlock } from './selectedPrograms';
+
 export type Rule = {
   label: string;
   ifElsePart?: 'IfPart' | 'ElsePart';
@@ -91,7 +93,7 @@ type IncompleteRequirement = Rule & {
   ruleType: 'Incomplete';
 };
 
-type AnyRule = IfRequirement | BlockTypeRequirement | BlockRequirement | CourseRequirement | GroupRequirement | SubsetRequirement | CompleteRequirement | IncompleteRequirement;
+export type AnyRule = IfRequirement | BlockTypeRequirement | BlockRequirement | CourseRequirement | GroupRequirement | SubsetRequirement | CompleteRequirement | IncompleteRequirement;
 
 export function ruleToString(_rule: Rule, indent = 0): string {
   const rule: AnyRule = _rule as AnyRule;
@@ -174,13 +176,13 @@ export function getCourseRquirements(_rule: Rule): {
     case 'Blocktype':
       return [];
     case 'Block':
-      return [];
+      return getCourseRequirementsForBlock(rule);
     case 'Course':
       return [getCourseRequirementsForRule(rule)];
     case 'Group':
       return [];
     case 'Subset':
-      return [];
+      return rule.ruleArray.flatMap(getCourseRquirements);
     case 'Complete':
       return [];
     case 'Incomplete':
@@ -225,7 +227,13 @@ function getCourseRequirementsForCondition(
   return [...leftCourses, ...rightCourses];
 }
 
+function getCourseRequirementsForBlock(rule: BlockRequirement) {
+  return getBlock(rule.requirement.value)?.courseRequirements ?? [];
+  // return `${rule.requirement.numBlocks} block of type ${rule.requirement.value} (${rule.requirement.type})`;
+}
+
 function getCourseRequirementsForRule(rule: CourseRequirement): {
+  label: string;
   coursesNeeded?: number;
   creditsNeeded?: number;
   courses: {
@@ -243,6 +251,7 @@ function getCourseRequirementsForRule(rule: CourseRequirement): {
     code: c.number
   }));
   return {
+    label: rule.label,
     coursesNeeded,
     creditsNeeded,
     courses

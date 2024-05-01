@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { navigating } from '$app/stores';
+  import { type Course, Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse } from '$lib/selectedCourses';
   import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor } from '$lib/selectedPrograms';
   import { ruleToString, getCourseRquirements } from '$lib/requirements';
+  import RuleComponent from './RuleComponent.svelte';
   import CourseComponent from './CourseComponent.svelte';
-  import { type Course, type Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse } from '$lib/selectedCourses';
+
+  let fullScreenList = false;
 
   let searchCourse: Course | undefined = undefined;
   let hoveringOver: null | { year: number; term: Term } = null;
@@ -14,10 +18,13 @@
   }
 
   function drop(event: DragEvent) {
+    console.log('a');
     event.preventDefault();
     if (!draggingCourse) return;
 
-    if (!hoveringOver) return removeCourse(draggingCourse);
+    console.log(hoveringOver);
+    console.log(!hoveringOver || hoveringOver.year === -1);
+    if (!hoveringOver || hoveringOver.year === -1) return removeCourse(draggingCourse);
     const { year, term } = hoveringOver;
 
     if (!moveCourse(draggingCourse, year, term)) addCourse(draggingCourse, year, term);
@@ -27,13 +34,19 @@
   }
 </script>
 
+{#if $navigating}
+  <div class="fixed inset-0 bg-white z-50 flex justify-center items-center">
+    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500" />
+  </div>
+{/if}
+
 <div class="flex gap-1 items-center">
   (Click)
   {#each Statuses as status}
     <div class={`p-1 px-2 border-2 border-transparent rounded-full capitalize ${status.style}`}>{status.value.toLowerCase().replace('_', ' ')}</div>
   {/each}
   <div class="w-8" />
-  (Right Click)
+  (Shift Click)
   {#each Requirements as requirement}
     <div class={`p-1 px-2 rounded-md capitalize border-2 ${requirement.style}`}>{requirement.value.toLowerCase().replace('_', ' ')}</div>
   {/each}
@@ -60,7 +73,7 @@
 {/if}
 
 <div class="flex gap-4 h-fit">
-  <div class="flex gap-2 flex-col">
+  <div class="flex gap-2 flex-col w-full">
     <div class="flex flex-col gap-2">
       {#each $selectedPrograms as program}
         <div class="flex gap-4">
@@ -121,6 +134,7 @@
         <label>
           <input
             type="checkbox"
+            checked={$selectedMinors.includes(minor.key)}
             on:change={(e) => {
               if (e.currentTarget.checked) selectedMinors.update((minors) => [...minors, minor.key]);
               else selectedMinors.update((minors) => minors.filter((m) => m !== minor.key));
@@ -132,14 +146,29 @@
   </div>
 </div>
 
-<div class="flex overflow-x-scroll sticky top-0 gap-3 z-10 bg-white min-h-[25vh] max-h-[50vh]">
+<div class={`flex overflow-x-scroll sticky top-0 gap-3 z-10 bg-white min-h-[25vh] ${fullScreenList ? 'h-screen max-h-screen' : 'max-h-[50vh]'}`}>
+  <div class="absolute top-0 right-0 flex gap-1 items-start">
+    <div role="none" class="px-1 rounded-full bg-red-500 text-white text-[10px]" on:dragleave={() => (hoveringOver = null)} on:drop={(event) => drop(event)} on:dragover={(event) => (event.preventDefault(), (hoveringOver = { year: -1, term: Term.FALL }))}>Drag here to delete</div>
+    <button
+      class={`p-1 rounded-full hover:bg-gray-200 ${fullScreenList ? 'rotate-90 -scale-y-100' : ''}`}
+      on:click={() => {
+        fullScreenList = !fullScreenList;
+      }}>
+      <svg class="w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 4v5h5V4H5zm7 0v5h5V4h-5zm7 0v5h5V4h-5zM5 11v5h5v-5H5zm7 0v5h5v-5h-5zm7 0v5h5v-5h-5zM5 18v2h14v-2H5z" fill="currentColor" />
+      </svg>
+    </button>
+  </div>
   {#each $selectedCourses as year}
     <div class="flex flex-col">
-      {year.year}
+      {year.year} ({year.terms.reduce((acc, term) => acc + term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0), 0)} credits)
       <div class="flex gap-1 h-full">
         {#each year.terms as term}
           <div class="flex-col flex gap-1 h-full">
-            <span class="text-lg font-bold capitalize">{term.term}</span>
+            <div>
+              <span class="text-lg font-bold capitalize">{term.term}</span>
+              <div>{term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0)} credits</div>
+            </div>
             <div
               class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50 h-full"
               class:hovering={hoveringOver?.year === year.year && hoveringOver?.term === term.term}
@@ -155,7 +184,8 @@
                   on:dragstart={(event) => {
                     dragStart(event, course);
                   }}
-                  {course} />
+                  {course}
+                  inPlanner />
               {/each}
             </div>
           </div>
@@ -172,26 +202,28 @@
       <p class="text-lg font-bold capitalize">
         {programData?.description}
       </p>
-      <details>
+      <details class="flex flex-col">
         <summary>Requirements</summary>
-        <p class="whitespace-pre">
-          {programData?.requirements.map((r) => ruleToString(r)).join('\n')}
-        </p>
+        {#each programData?.requirements ?? [] as rule}
+          <RuleComponent {rule} />
+        {/each}
       </details>
       <p class="whitespace-pre flex flex-wrap gap-2">
         {#each programData?.courseRequirements ?? [] as courseSet}
-          <div class={`${(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : 'bg-slate-100'} flex flex-col`}>
-            <p>{(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`}</p>
+          <div class={`${(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : 'bg-slate-100'} flex flex-col group relative`}>
+            <p>{(courseSet.coursesNeeded ?? courseSet.creditsNeeded) == 1 ? '' : courseSet.coursesNeeded ? `${courseSet.coursesNeeded} courses from` : `${courseSet.creditsNeeded} credits from`} <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span></p>
             <div class="flex flex-wrap gap-2">
               {#each courseSet.courses as courseO}
                 {@const course = getCourse(courseO.discipline, courseO.code)}
-                {#if course}
-                  <CourseComponent
-                    on:dragstart={(event) => {
-                      dragStart(event, course);
-                    }}
-                    {course} />
-                {/if}
+                <CourseComponent
+                  on:dragstart={(event) => {
+                    dragStart(event, course);
+                  }}
+                  {course}
+                  courseData={{
+                    discipline: courseO.discipline,
+                    code: courseO.code
+                  }} />
               {/each}
             </div>
           </div>
@@ -208,9 +240,9 @@
   </p>
   <details>
     <summary>Requirements</summary>
-    <p class="whitespace-pre">
-      {minorData?.requirements.map((r) => ruleToString(r)).join('\n')}
-    </p>
+    {#each minorData?.requirements ?? [] as rule}
+      <RuleComponent {rule} />
+    {/each}
   </details>
   <p class="whitespace-pre flex flex-wrap gap-2">
     {#each minorData?.courseRequirements ?? [] as courseSet}
@@ -219,13 +251,15 @@
         <div class="flex flex-wrap gap-2">
           {#each courseSet.courses as courseO}
             {@const course = getCourse(courseO.discipline, courseO.code)}
-            {#if course}
-              <CourseComponent
-                on:dragstart={(event) => {
-                  dragStart(event, course);
-                }}
-                {course} />
-            {/if}
+            <CourseComponent
+              on:dragstart={(event) => {
+                dragStart(event, course);
+              }}
+              {course}
+              courseData={{
+                discipline: courseO.discipline,
+                code: courseO.code
+              }} />
           {/each}
         </div>
       </div>
