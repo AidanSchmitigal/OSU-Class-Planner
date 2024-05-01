@@ -50,6 +50,24 @@
   {#each Requirements as requirement}
     <div class={`p-1 px-2 rounded-md capitalize border-2 ${requirement.style}`}>{requirement.value.toLowerCase().replace('_', ' ')}</div>
   {/each}
+  <div class="w-8" />
+  <button
+    class="p-1 px-2 rounded-md border-2 border-blue-500"
+    on:click={(e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('courses', JSON.stringify($selectedCourses));
+      url.searchParams.set('programs', JSON.stringify($selectedPrograms));
+      url.searchParams.set('minors', JSON.stringify($selectedMinors));
+      navigator.clipboard.writeText(url.toString());
+
+      e.currentTarget.textContent = 'Copied!';
+      const target = e.currentTarget;
+      setTimeout(() => {
+        target.textContent = 'Copy Share Link';
+      }, 1000);
+    }}>
+    Copy Share Link
+  </button>
 </div>
 
 <input

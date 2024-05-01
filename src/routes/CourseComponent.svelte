@@ -1,6 +1,6 @@
 <script lang="ts">
   import { hoverCourse, popupCourses } from '$lib/hoverClass';
-  import { nextRequirement, getCourse, nextStatus, type Course, selectedCourses } from '$lib/selectedCourses';
+  import { nextRequirement, getCourse, nextStatus, type Course, selectedCourses, getTermsOffered, termAbbr } from '$lib/selectedCourses';
 
   export let inPlanner = false;
   export let course: Course | null = null;
@@ -20,7 +20,7 @@
     on:dragstart
     on:mouseenter={() => ($hoverCourse = course)}
     on:mouseleave={() => ($hoverCourse = null)}
-    class={`${course.requirement.style} outline-none bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center`}
+    class={`${course.requirement.style} group/course outline-none bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center`}
     on:click={(e) => {
       if (!course) return;
       if (e.shiftKey) {
@@ -46,9 +46,12 @@
     <div class={`${course.status.style} rounded-full absolute top-0 right-0 w-6 h-6`} />
     <span class="uppercase font-bold">{course.discipline} {course.code}</span>
     <span class="text-[10px] text-center capitalize whitespace-break-spaces">{course.title.toLowerCase()}</span>
-    {#if inPlanner}
-      <span class="text-[10px] font-light">({course.creditHourLow || course.creditHourHigh})</span>
-    {/if}
+    <span class={`${inPlanner ? 'inline' : 'group-hover/course:inline hidden'} text-[10px] font-light`}
+      >({course.creditHourLow || course.creditHourHigh})<span class={inPlanner ? 'hidden' : 'inline'}
+        >{getTermsOffered(course)
+          .flatMap((s) => s.terms)
+          .map(termAbbr)}</span
+      ></span>
   </button>
 {:else if courseData}
   <div class="bg-gray-50 flex-shrink-0 relative border-[3px] p-2 rounded-[50%] shadow-md flex flex-col w-28 h-[5.5rem] justify-start items-center">
