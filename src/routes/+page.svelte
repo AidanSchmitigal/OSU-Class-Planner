@@ -2,7 +2,7 @@
   import { navigating } from '$app/stores';
   import { type Course, Term, Statuses, Requirements, Terms, getCourse, selectedCourses, addCourse, removeCourse, moveCourse } from '$lib/selectedCourses';
   import { selectedPrograms, getDegrees, getColleges, getMajors, getConcentrations, getDegree, getCollege, getMajor, getConcentration, getMinors, selectedMinors, getMinor } from '$lib/selectedPrograms';
-  import { ruleToString, getCourseRquirements } from '$lib/requirements';
+  import { ruleToString, getCourseRquirements, checkIfCondition } from '$lib/requirements';
   import RuleComponent from './RuleComponent.svelte';
   import CourseComponent from './CourseComponent.svelte';
 
@@ -170,7 +170,7 @@
               <div>{term.courses.reduce((acc, course) => acc + (+course.creditHourLow || +course.creditHourHigh), 0)} credits</div>
             </div>
             <div
-              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] bg-gray-50 h-full"
+              class="flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] h-full bg-gray-50"
               class:hovering={hoveringOver?.year === year.year && hoveringOver?.term === term.term}
               role="group"
               on:dragenter={() => {

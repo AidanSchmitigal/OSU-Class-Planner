@@ -12,27 +12,27 @@ export const selectedCourses = writable<{ year: number; terms: { term: Term; cou
       .fill(0)
       .map((_, i) => ({
         year: new Date().getFullYear() + i,
-        terms: [
-          {
-            term: Term.FALL,
-            courses: []
-          },
-          {
-            term: Term.WINTER,
-            courses: []
-          },
-          {
-            term: Term.SPRING,
-            courses: []
-          },
-          {
-            term: Term.SUMMER,
-            courses: []
-          }
-        ]
+        terms: Terms.map((term) => ({
+          term,
+          courses: []
+        }))
       }))
 );
+let quickSave = false;
 selectedCourses.subscribe((value) => {
+  if (quickSave) return (quickSave = false);
+  const lastTermHasCourses = !!value.at(-1)?.terms.at(-1)?.courses.length;
+  if (lastTermHasCourses) {
+    value.push({
+      year: value.at(-1)!.year + 1,
+      terms: Terms.map((term) => ({
+        term,
+        courses: []
+      }))
+    });
+    quickSave = true;
+    selectedCourses.set(value);
+  }
   saveLocalStore('selectedCourses', value);
 });
 
@@ -125,6 +125,12 @@ export function removeCourse(course: Course) {
 
 export function hasCourse(course: Course): boolean {
   return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => c.discipline === course.discipline && c.code === course.code)));
+}
+
+export function hasCourseSelector(discipline: string, code: string): boolean {
+  const anyDiscipline = discipline === '@';
+  const anyCode = code === '@';
+  return !!get(selectedCourses).some((y) => y.terms.some((t) => t.courses.some((c) => (anyDiscipline || c.discipline === discipline) && (anyCode || c.code === code))));
 }
 
 export function getPostrequisites(course: Course): Course[] {
