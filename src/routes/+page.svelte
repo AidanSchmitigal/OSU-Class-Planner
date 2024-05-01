@@ -207,7 +207,7 @@
               <div>{term.courses.reduce((acc, course) => acc + getCredits(course), 0)} credits</div>
             </div>
             <div
-              class={`flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] ${year.year === new Date().getFullYear() && Math.floor(new Date().getMonth() / 4 + 2) % 4 === i ? 'bg-blue-100' : 'bg-gray-50'}`}
+              class={`flex p-2 flex-col gap-1 min-w-[6rem] min-h-[10rem] ${year.year === new Date().getFullYear() && Math.floor(new Date().getMonth() / 4 + 1) % 4 === i ? 'bg-blue-100' : 'bg-gray-50'}`}
               class:hovering={hoveringOver?.year === year.year && hoveringOver?.term === term.term}
               role="group"
               on:dragenter={() => {
