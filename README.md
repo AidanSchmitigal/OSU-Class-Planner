@@ -6,7 +6,7 @@ The data doesn't get updated so it might be out of date but it shows you require
 
 ## Tech Stack
 - **Frontend**:  
-  - Svelt
+  - Svelte
   - TailwindCSS
 - **Tools**:
   - Figma
