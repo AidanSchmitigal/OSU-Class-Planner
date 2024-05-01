@@ -6,7 +6,7 @@
 
 {#if $hoverCourse}
   <!-- SVG arrow connecting to prerequisites -->
-  <svg class="z-10 fixed inset-0 pointer-events-none" viewBox={`0 0 ${innerWidth} ${innerHeight}`} xmlns="http://www.w3.org/2000/svg">
+  <svg class="z-50 fixed inset-0 pointer-events-none" viewBox={`0 0 ${innerWidth} ${innerHeight}`} xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- A marker to be used as an arrowhead -->
       <marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">

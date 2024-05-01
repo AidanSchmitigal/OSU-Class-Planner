@@ -12,26 +12,32 @@ const degreeTree = _degreeTree as {
 }[];
 // @ts-ignore
 import _degrees from '$lib/data/degrees.json' assert { type: 'json' };
-const degrees = (_degrees as ProgramList).map((e) => ({
+const degrees = (_degrees as unknown as ProgramList).map((e) => ({
   ...e,
   courseRequirements: e.requirements.flatMap(getCourseRquirements)
 })) as ProgramList;
 // @ts-ignore
 import _colleges from '$lib/data/colleges.json' assert { type: 'json' };
 // @ts-ignore
-const colleges = (_colleges as ProgramList).map((e) => ({
+const colleges = (_colleges as unknown as ProgramList).map((e) => ({
   ...e,
   courseRequirements: e.requirements.flatMap(getCourseRquirements)
 })) as ProgramList;
 // @ts-ignore
 import _majors from '$lib/data/majors.json' assert { type: 'json' };
-const majors = (_majors as ProgramList).map((e) => ({
+const majors = (_majors as unknown as ProgramList).map((e) => ({
   ...e,
   courseRequirements: e.requirements.flatMap(getCourseRquirements)
 })) as ProgramList;
 // @ts-ignore
 import _concentrations from '$lib/data/concentrations.json' assert { type: 'json' };
-const concentrations = (_concentrations as ProgramList).map((e) => ({
+const concentrations = (_concentrations as unknown as ProgramList).map((e) => ({
+  ...e,
+  courseRequirements: e.requirements.flatMap(getCourseRquirements)
+})) as ProgramList;
+// @ts-ignore
+import _minors from '$lib/data/minors.json' assert { type: 'json' };
+const minors = (_minors as unknown as ProgramList).map((e) => ({
   ...e,
   courseRequirements: e.requirements.flatMap(getCourseRquirements)
 })) as ProgramList;
@@ -65,6 +71,10 @@ export const selectedPrograms = writable<
 selectedPrograms.subscribe((value) => {
   saveLocalStore('selectedPrograms', value);
 });
+export const selectedMinors = writable<string[]>(loadLocalStore('selectedMinors') ?? []);
+selectedMinors.subscribe((value) => {
+  saveLocalStore('selectedMinors', value);
+});
 
 export function getDegrees() {
   return degreeTree;
@@ -82,6 +92,10 @@ export function getConcentrations(degree: string, college: string, major: string
   return getMajors(degree, college)?.find((m) => m.major === major)?.concentrations ?? [];
 }
 
+export function getMinors() {
+  return minors;
+}
+
 export function getDegree(degree: string) {
   return degrees.find((d) => d.key === degree);
 }
@@ -96,4 +110,8 @@ export function getMajor(major: string) {
 
 export function getConcentration(concentration: string) {
   return concentrations.find((c) => c.key === concentration);
+}
+
+export function getMinor(minor: string) {
+  return minors.find((m) => m.key === minor);
 }
