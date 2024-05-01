@@ -5,23 +5,25 @@ import { loadLocalStore, loadedFromURL, saveLocalStore, urlParams, type Course, 
 import { get, writable } from 'svelte/store';
 
 function importCourses(courses: string) {
-  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string, status: string, requirement: string }[] }[] }[];
+  const importedCourses = JSON.parse(courses) as { year: number; terms: { term: Term; courses: { discipline: string; code: string; status: string; requirement: string }[] }[] }[];
   if (!importedCourses) return;
   allProgramsLoaded.then(() => {
-  selectedCourses.set(importedCourses.map((c) => ({
-    year: c.year,
-    terms: c.terms.map((t) => ({
-      term: t.term,
-      courses: t.courses.map((c) => {
-        const course = getCourse(c.discipline, c.code)!
-        course.status = Statuses.find((s) => s.value === c.status)!;
-        course.requirement = Requirements.find((r) => r.value === c.requirement)!;
-        return course;
-      }),
-    }))
-  })));
+    selectedCourses.set(
+      importedCourses.map((c) => ({
+        year: c.year,
+        terms: c.terms.map((t) => ({
+          term: t.term,
+          courses: t.courses.map((c) => {
+            const course = getCourse(c.discipline, c.code)!;
+            course.status = Statuses.find((s) => s.value === c.status)!;
+            course.requirement = Requirements.find((r) => r.value === c.requirement)!;
+            return course;
+          })
+        }))
+      }))
+    );
   });
-  return []
+  return [];
 }
 
 export const selectedCourses = writable<{ year: number; terms: { term: Term; courses: Course[] }[] }[]>(
@@ -170,10 +172,10 @@ export function hasSomeCourseSelector(
     .flat();
   if (requirement.credits) {
     const credits = matches.reduce((a, c) => a + getCredits(c!), 0);
-    return credits >= requirement.credits;
+    return { creditsLeft: requirement.credits - credits, done: credits >= requirement.credits };
   }
-  if (requirement.courses) return matches.length >= requirement.courses;
-  return false;
+  if (requirement.courses) return { coursesLeft: requirement.courses - matches.length, done: matches.length >= requirement.courses };
+  return { done: false };
 }
 
 export function hasCourseSelector(discipline: string, code: string, attribute?: string): boolean {

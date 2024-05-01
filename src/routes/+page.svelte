@@ -252,10 +252,11 @@
       </details>
       <p class="whitespace-pre flex flex-wrap gap-2">
         {#each programData?.courseRequirements ?? [] as courseSet}
-          {#if !hasSomeCourseSelector(courseSet.courses, { credits: courseSet.creditsNeeded, courses: courseSet.coursesNeeded })}
+          {@const remaining = hasSomeCourseSelector(courseSet.courses, { credits: courseSet.creditsNeeded, courses: courseSet.coursesNeeded })}
+          {#if !remaining.done}
             <div class={`${courseSet.courses.length > 1 ? 'bg-slate-100' : ''} flex flex-col group relative`}>
               <p>
-                {courseSet.coursesNeeded ? (courseSet.courses.length == 1 ? '' : `${courseSet.coursesNeeded} courses from`) : `${courseSet.creditsNeeded} credits from`}
+                {courseSet.coursesNeeded ? (courseSet.courses.length == 1 ? '' : `(${courseSet.coursesNeeded}) ${remaining.coursesLeft} more courses from`) : `(${courseSet.creditsNeeded}) ${remaining.creditsLeft} more credits from`}
                 <span class="hidden group-hover:inline group-hover:absolute text-gray-400">({courseSet.label})</span>
               </p>
               <div class="flex flex-wrap gap-2">
