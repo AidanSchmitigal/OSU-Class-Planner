@@ -4,7 +4,7 @@ export enum Term {
   SPRING = 'SPRING',
   SUMMER = 'SUMMER'
 }
-export const Terms = [Term.FALL, Term.WINTER, Term.SPRING, Term.SUMMER];
+export const Terms = [Term.WINTER, Term.SPRING, Term.SUMMER, Term.FALL];
 export function termAbbr(term: Term) {
   switch (term) {
     case Term.FALL:

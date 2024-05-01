@@ -22,10 +22,10 @@ export const selectedCourses = writable<{ year: number; terms: { term: Term; cou
   loadedFromURL
     ? importCourses(urlParams.get('courses')!)
     : loadLocalStore('selectedCourses') ??
-        Array(new Date().getFullYear() - 2023 + 4)
+        Array(new Date().getFullYear() - 2022 + 4)
           .fill(0)
           .map((_, i) => ({
-            year: new Date().getFullYear() + i,
+            year: 2022 + i,
             terms: Terms.map((term) => ({
               term,
               courses: []
